@@ -13,6 +13,10 @@ public abstract class ServerAttendant {
     private Queue<AttendantEvent> eventRec;
 
     public ServerAttendant(SocketChannel connection, String id, AttendantInfo info) {
+
+    }
+
+    public ServerAttendant(SocketChannel connection, String id, AttendantInfo info) {
         this.connection = connection;
     }
 
@@ -21,5 +25,5 @@ public abstract class ServerAttendant {
         return info;
     }
 
-    private boolean setConnection();
+    private abstract void setConnection();
 }
