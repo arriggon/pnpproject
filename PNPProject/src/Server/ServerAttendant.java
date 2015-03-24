@@ -21,5 +21,5 @@ public abstract class ServerAttendant {
         return info;
     }
 
-    private boolean setConnection()
+    private boolean setConnection();
 }
