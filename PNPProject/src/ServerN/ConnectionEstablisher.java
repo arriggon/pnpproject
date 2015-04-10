@@ -13,9 +13,12 @@ import java.net.Socket;
 public class ConnectionEstablisher implements Runnable {
 
     private ServerSocket listener;
+    private ConnectionManager cm;
+    private Server s;
 
-    public ConnectionEstablisher(int port) throws IOException {
+    public ConnectionEstablisher(int port, ConnectionManager cm, Server s) throws IOException {
         listener = new ServerSocket(port);
+        this.cm = cm;
     }
 
     @Override
@@ -30,12 +33,15 @@ public class ConnectionEstablisher implements Runnable {
             UserInfo usi = (UserInfo) ios.readObject();
             User u = new User(s, usi);
 
+            cm.addUser(u);
 
 
 
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
