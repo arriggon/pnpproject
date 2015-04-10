@@ -1,5 +1,6 @@
 package ServerN;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -10,6 +11,7 @@ public class Server {
 
     private ExecutorService threads;
     private Server.ServerConfig sc;
+    private ConnectionManager cm;
 
     public Server(Server.ServerConfig sc) {
         this.sc = sc;
@@ -17,7 +19,13 @@ public class Server {
     }
 
     public void start(int port) {
-        ConnectionEstablisher cs
+        ConnectionManager cm = new ConnectionManager();
+        try {
+            ConnectionEstablisher cs = new ConnectionEstablisher(3340, cm, this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
