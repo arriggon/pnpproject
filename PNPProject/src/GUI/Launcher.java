@@ -1,105 +1,95 @@
 package GUI;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-public class Launcher {
-    public static class Listener implements ActionListener{
-        Layer l;
-
-        public Listener(Layer l){
-            this.l = l;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JButton j = (JButton)e.getSource();
-            String s = j.getActionCommand();
-            if(s.equals("settings")){
-                l.Settings();
-            }else if(s.equals("host")){
-                l.Host();
-            }else if(s.equals("join")){
-                l.Join();
-            }else if(s.equals("exit")){
-                l.Exit();
-            }else{
-
-            }
-        }
-    }
-
-    public static class Layer extends JPanel {
-        private JButton settings;
-        private JButton host;
-        private JButton join;
-        private JButton exit;
-        private Listener l;
-
-        public Layer(){
-            settings = new JButton("Settings");
-            host = new JButton("Host a game");
-            join = new JButton("Join a game");
-            exit = new JButton("Exit");
-
-            l = new Listener(this);
-
-            settings.addActionListener(l);
-            host.addActionListener(l);
-            join.addActionListener(l);
-            exit.addActionListener(l);
-
-            settings.setActionCommand("settings");
-            host.setActionCommand("host");
-            join.setActionCommand("join");
-            exit.setActionCommand("exit");
-
-            this.add(settings);
-            this.add(host);
-            this.add(join);
-            this.add(exit);
-        }
-
-        public void Settings(){
-            //Still needs implementation
-        }
-
-        public void Host(){
-            //Still needs implementation
-        }
-
-        public void Join(){
-            //Still needs implementation
-        }
-
-        public void Exit(){
-            //Still needs implementation
-        }
-    }
-
-    public static class Window extends JFrame{
-        public Window(String title){
-            this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            this.setTitle(title);
-            Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-            double w = d.getWidth()*0.4;
-            double h = d.getHeight()*0.3;
-            this.setSize((int)w,(int)h);
-            this.setResizable(true);
-            this.add(new Layer());
-            this.setLocation((int)((d.getWidth()/2)-(w/2)),(int)((d.getHeight()/2)-(h/2)));
-            this.setVisible(true);
-        }
-    }
+public class Launcher extends Application {
+    private Button join_btn;
+    private Button host_btn;
+    private Button settings_btn;
+    private Button quit_btn;
+    private TextField user_field;
+    private Label user_label;
+    private double xOffset;
+    private double yOffset;
 
     public static void main(String[] args){
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                Window w = new Window("Launcher");
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        BorderPane main = new BorderPane();
+
+        //Main Menu Layout
+        VBox v = new VBox(15);
+        v.setAlignment(Pos.CENTER);
+        //Buttons
+        join_btn = new Button("Join a Game");
+        join_btn.setMaxSize(100, 20);
+        host_btn = new Button("Host a Game");
+        host_btn.setMaxSize(100,20);
+        settings_btn = new Button("Settings");
+        settings_btn.setMaxSize(100,20);
+        quit_btn = new Button("Quit");
+        quit_btn.setMaxSize(100,20);
+        quit_btn.setOnAction(e ->{
+            if(new OptionDialogue().show("","Quit?")){
+                primaryStage.close();
+            }else{
+                //do nothing
             }
         });
+        //Textfields
+        user_field = new TextField();
+        user_field.setMaxSize(100,20);
+        //Labels
+        user_label = new Label("User-Name: ");
+        //Adding
+        v.getChildren().addAll(user_label, user_field, join_btn, host_btn, settings_btn, quit_btn);
+
+        //Add to main
+        main.setCenter(v);
+
+        //Draggable
+        main.setOnMousePressed(e -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        main.setOnMouseDragged(e -> {
+            primaryStage.setX(e.getScreenX() - xOffset);
+            primaryStage.setY(e .getScreenY() - yOffset);
+        });
+
+
+        //Create Scene & set layout
+        Scene sc = new Scene(main,250,400);
+
+        //Set scene
+        primaryStage.setScene(sc);
+
+        //Show Stage
+        primaryStage.show();
+    }
+
+    public void join(){
+
+    }
+
+    public void host(){
+
+    }
+
+    public void settings(){
+
     }
 }
