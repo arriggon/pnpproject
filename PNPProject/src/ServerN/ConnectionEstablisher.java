@@ -14,6 +14,7 @@ public class ConnectionEstablisher implements Runnable {
 
     private ServerSocket listener;
     private ConnectionManager cm;
+    private boolean stop;
     private Server s;
 
     public ConnectionEstablisher(int port, ConnectionManager cm, Server s) throws IOException {
@@ -24,19 +25,11 @@ public class ConnectionEstablisher implements Runnable {
     @Override
     public void run() {
         try {
+            while (true) {
+                Socket s = listener.accept();
+                establishConnection(s);
 
-            Socket s = listener.accept();
-            ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
-            ObjectInputStream ios = new ObjectInputStream(s.getInputStream());
-
-            oos.writeObject(new ServerCommandWrapper(ServerCommand.CLIENT_SEND_INFO));
-            UserInfo usi = (UserInfo) ios.readObject();
-            User u = new User(s, usi);
-
-            cm.addUser(u);
-
-
-
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -44,6 +37,34 @@ public class ConnectionEstablisher implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    private void establishConnection(Socket s) throws Exception {
+        ObjectOutputStream oos = null;
+        ObjectInputStream ios = null;
+        try {
+            oos = new ObjectOutputStream(s.getOutputStream());
+            ios = new ObjectInputStream(s.getInputStream());
+
+            oos.writeObject(new ServerCommandWrapper(ServerCommand.CLIENT_SEND_INFO));
+            UserInfo usi = (UserInfo) ios.readObject();
+            User u = new User(s, usi);
+
+
+            cm.addUser(u);
+
+        } finally {
+            if(oos != null) {
+                oos.close();
+            }
+
+            if(ios != null) {
+                ios.close();
+            }
+
+        }
+
     }
 
 }

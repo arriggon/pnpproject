@@ -11,6 +11,7 @@ public class User {
     private UserInfo usi;
 
 
+
     public User(Socket s, UserInfo usi) {
         this.s = s;
         this.usi = usi;
