@@ -1,5 +1,9 @@
 package ServerN.Model;
 
+import ServerN.ServerCommandWrapper;
+
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 
 /**
@@ -15,6 +19,10 @@ public class User {
     public User(Socket s, UserInfo usi) {
         this.s = s;
         this.usi = usi;
+    }
+
+    public boolean disconnect() {
+
     }
 
     @Override

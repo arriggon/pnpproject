@@ -13,6 +13,7 @@ public class Server {
     private ExecutorService threads;
     private Server.ServerConfig sc;
     private ConnectionManager cm;
+    private ConnectionEstablisher ce;
     private Future fCm;
 
     public Server(Server.ServerConfig sc) {
@@ -25,6 +26,8 @@ public class Server {
         try {
             ConnectionEstablisher cs = new ConnectionEstablisher(3340, cm, this);
             this.fCm = threads.submit(cs);
+            this.ce = cs;
+            this.cm = cm;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,9 +36,13 @@ public class Server {
 
 
     public void stop() {
+        while (true) {
+            if(this.ce.isReady()) {
+                fCm.cancel(false);
+            }
+        }
 
-        fCm.cancel(false);
-        if(fCm.isCancelled())
+        //Load saves into file once model is finished
 
     }
 

@@ -3,6 +3,7 @@ package ServerN;
 import ServerN.Model.User;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -23,6 +24,14 @@ public class ConnectionManager {
 
     public Set<User> getAllUsers() {
         return (HasSet<User>)users.clone();
+    }
+
+    public void disconnectAllUsers() {
+        Iterator<User> i = users.iterator();
+        while(i.hasNext()) {
+           User temp = i.next();
+            temp.
+        }
     }
 
 

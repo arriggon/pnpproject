@@ -6,6 +6,7 @@ import ServerN.Model.UserInfo;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by RAIDER on 10.04.2015.
@@ -14,19 +15,26 @@ public class ConnectionEstablisher implements Runnable {
 
     private ServerSocket listener;
     private ConnectionManager cm;
-    private boolean stop;
+    private AtomicBoolean ready;
     private Server s;
 
     public ConnectionEstablisher(int port, ConnectionManager cm, Server s) throws IOException {
         listener = new ServerSocket(port);
         this.cm = cm;
+        this.ready = new AtomicBoolean();
+    }
+
+    public boolean isReady() {
+        return ready.get();
     }
 
     @Override
     public void run() {
         try {
             while (true) {
+                this.ready.set(true);
                 Socket s = listener.accept();
+                this.ready.set(false);
                 establishConnection(s);
 
             }
