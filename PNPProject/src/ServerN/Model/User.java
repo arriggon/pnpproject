@@ -1,9 +1,7 @@
 package ServerN.Model;
 
-import ServerN.ServerCommandWrapper;
 
 import java.io.IOException;
-import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -28,8 +26,21 @@ public class User {
     }
 
     public boolean disconnect() throws IOException {
-        s.close();
+        this.ios.close();
+        this.oos.close();
+        this.s.close();
+        return true;
     }
+
+    public ObjectInputStream getInput() {
+        return this.ios;
+    }
+
+    public ObjectOutputStream getOutput() {
+        return this.oos;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
