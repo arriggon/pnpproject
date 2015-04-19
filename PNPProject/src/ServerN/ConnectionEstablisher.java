@@ -57,7 +57,8 @@ public class ConnectionEstablisher implements Runnable {
 
             oos.writeObject(new ServerCommandWrapper(ServerCommand.CLIENT_SEND_INFO));
             UserInfo usi = (UserInfo) ios.readObject();
-            User u = new User(s, usi);
+            User u = new User(s, usi, ios, oos);
+
 
 
             cm.addUser(u);

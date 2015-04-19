@@ -18,11 +18,11 @@ public class User {
 
 
 
-    public User(Socket s, UserInfo usi) throws IOException {
+    public User(Socket s, UserInfo usi, ObjectInputStream ios, ObjectOutputStream oos) throws IOException {
         this.s = s;
         this.usi = usi;
-        this.ios = new ObjectInputStream(s.getInputStream());
-        this.oos = new ObjectOutputStream(s.getOutputStream());
+        this.ios = ios;
+        this.oos = oos;
     }
 
     public boolean disconnect() throws IOException {
