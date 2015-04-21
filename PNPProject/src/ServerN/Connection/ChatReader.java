@@ -1,9 +1,5 @@
 package ServerN.Connection;
 
-import ServerN.Chat.Messengar;
-import ServerN.Model.ServerChat;
-import ServerN.Server;
-
 
 import java.io.ObjectInputStream;
 import java.util.concurrent.Callable;
@@ -11,7 +7,7 @@ import java.util.concurrent.Callable;
 /**
  * Created by RAIDER on 19.04.2015.
  */
-public class ChatReader implements Callable<ServerChat> {
+public class ChatReader implements Callable<Object> {
 
     private ObjectInputStream ios;
 
@@ -25,10 +21,10 @@ public class ChatReader implements Callable<ServerChat> {
 
 
     @Override
-    public ServerChat call() throws Exception {
+    public Object call() throws Exception {
 
        Object o = ios.readObject();
-
+        return null;
 
     }
 }

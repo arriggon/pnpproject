@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import Server.ServerConfig;
 
 /**
  * Created by RAIDER on 10.04.2015.
@@ -11,12 +12,12 @@ import java.util.concurrent.Future;
 public class Server {
 
     private ExecutorService threads;
-    private Server.ServerConfig sc;
+    private ServerConfig sc;
     private ConnectionManager cm;
     private ConnectionEstablisher ce;
     private Future fCm;
 
-    public Server(Server.ServerConfig sc) {
+    public Server(ServerConfig sc) {
         this.sc = sc;
         this.threads = Executors.newCachedThreadPool();
     }
