@@ -1,5 +1,6 @@
 package ServerN;
 
+import ServerN.Connection.ChatReaderManager;
 import ServerN.Model.User;
 import ServerN.Model.UserInfo;
 
@@ -16,12 +17,13 @@ public class ConnectionEstablisher implements Runnable {
     private ServerSocket listener;
     private ConnectionManager cm;
     private AtomicBoolean ready;
-    private Server s;
+    private ChatReaderManager chatManager;
 
-    public ConnectionEstablisher(int port, ConnectionManager cm, Server s) throws IOException {
+    public ConnectionEstablisher(int port, ConnectionManager cm, ChatReaderManager chatManager) throws IOException {
         listener = new ServerSocket(port);
         this.cm = cm;
         this.ready = new AtomicBoolean();
+        this.chatManager = chatManager;
     }
 
     public boolean isReady() {
@@ -58,9 +60,7 @@ public class ConnectionEstablisher implements Runnable {
             oos.writeObject(new ServerCommandWrapper(ServerCommand.CLIENT_SEND_INFO));
             UserInfo usi = (UserInfo) ios.readObject();
             User u = new User(s, usi, ios, oos);
-
-
-
+            chatManager.addChatter(u.getChatter());
             cm.addUser(u);
 
         } finally {

@@ -1,10 +1,13 @@
 package ServerN;
 
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import Server.ServerConfig;
+import ServerN.Connection.ChatReader;
+import ServerN.Connection.ChatReaderManager;
 
 /**
  * Created by RAIDER on 10.04.2015.
@@ -16,6 +19,7 @@ public class Server {
     private ConnectionManager cm;
     private ConnectionEstablisher ce;
     private Future fCm;
+    private ChatReaderManager chatReaderManager;
 
     public Server(ServerConfig sc) {
         this.sc = sc;
@@ -24,8 +28,9 @@ public class Server {
 
     public void start(int port) {
         ConnectionManager cm = new ConnectionManager();
+        this.chatReaderManager = new ChatReaderManager(threads);
         try {
-            ConnectionEstablisher cs = new ConnectionEstablisher(3340, cm, this);
+            ConnectionEstablisher cs = new ConnectionEstablisher(3340, cm,this.chatReaderManager);
             this.fCm = threads.submit(cs);
             this.ce = cs;
             this.cm = cm;
@@ -36,12 +41,12 @@ public class Server {
     }
 
 
+
+
     public void stop() {
-        while (true) {
-            if(this.ce.isReady()) {
-                fCm.cancel(false);
-            }
-        }
+        fCm.cancel(false);
+
+
 
         //Load saves into file once model is finished
 

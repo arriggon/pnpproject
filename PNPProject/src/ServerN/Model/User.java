@@ -1,6 +1,8 @@
 package ServerN.Model;
 
 
+import ServerN.Connection.ChatReader;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,6 +17,7 @@ public class User {
     private UserInfo usi;
     private ObjectInputStream ios;
     private ObjectOutputStream oos;
+    private ChatReader c;
 
 
 
@@ -23,6 +26,7 @@ public class User {
         this.usi = usi;
         this.ios = ios;
         this.oos = oos;
+        this.c = new ChatReader(ios);
     }
 
     public boolean disconnect() throws IOException {
@@ -52,6 +56,10 @@ public class User {
         if (!usi.equals(user.usi)) return false;
 
         return true;
+    }
+
+    public ChatReader getChatter() {
+        return this.c;
     }
 
     @Override
