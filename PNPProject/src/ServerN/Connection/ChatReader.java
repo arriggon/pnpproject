@@ -28,4 +28,6 @@ public class ChatReader implements Callable<Object> {
         return o;
 
     }
+
+
 }
