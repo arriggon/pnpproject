@@ -44,7 +44,7 @@ public class User {
         this.usi = usi;
         this.ios = ios;
         this.oos = oos;
-        this.c = new ChatReader(ios);
+        this.c = new ChatReader(ios, this);
     }
 
     public boolean disconnect() throws IOException {
