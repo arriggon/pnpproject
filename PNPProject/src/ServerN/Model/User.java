@@ -19,7 +19,25 @@ public class User {
     private ObjectOutputStream oos;
     private ChatReader c;
 
+    public UserInfo getUsi() {
+        return usi;
+    }
 
+    public Socket getS() {
+        return s;
+    }
+
+    public ObjectInputStream getIos() {
+        return ios;
+    }
+
+    public ObjectOutputStream getOos() {
+        return oos;
+    }
+
+    public ChatReader getC() {
+        return c;
+    }
 
     public User(Socket s, UserInfo usi, ObjectInputStream ios, ObjectOutputStream oos) throws IOException {
         this.s = s;
