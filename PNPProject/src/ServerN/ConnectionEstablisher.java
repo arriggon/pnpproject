@@ -8,10 +8,9 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 /**
- * Created by RAIDER on 10.04.2015.
- */
+// * Created by RAIDER on 10.04.2015.
+// */
 public class ConnectionEstablisher implements Runnable {
 
     private ServerSocket listener;
@@ -46,7 +45,7 @@ public class ConnectionEstablisher implements Runnable {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+       }
     }
 
 

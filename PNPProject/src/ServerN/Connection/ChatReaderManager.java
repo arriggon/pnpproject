@@ -1,3 +1,4 @@
+
 package ServerN.Connection;
 
 import java.util.ArrayList;
@@ -5,9 +6,11 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
+
 /**
  * Created by Alexander on 22.04.2015.
  */
+
 public class ChatReaderManager{
 
     private HashMap<ChatReader, Future<Object>> chatters;
@@ -19,7 +22,7 @@ public class ChatReaderManager{
     }
 
     public void addChatter(ChatReader reader) {
-        Future<Object> f = t.submit(reader);
+        Future f = t.submit(reader);
         chatters.put(reader, f);
     }
 
@@ -31,3 +34,4 @@ public class ChatReaderManager{
 
 
 }
+

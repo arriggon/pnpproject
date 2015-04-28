@@ -3,7 +3,7 @@ package Server.Exception;
 /**
  * Created by Alexander on 24.03.2015.
  */
-public class ServerConfigException extends Exception{
+public class ServerConfigException extends Exception {
     public ServerConfigException() {
         super();
     }
