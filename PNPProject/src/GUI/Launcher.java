@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -21,6 +20,10 @@ public class Launcher extends Application{
     private Button quit_btn;
     private double xOffset;
     private double yOffset;
+    /**
+     * For testing purposes:
+     * private GameWindow g = new GameWindow();
+    **/
 
     public static void main(String[] args){
         launch(args);
@@ -67,6 +70,10 @@ public class Launcher extends Application{
             JoinWindow.display("Join a game");
         });
         host_btn.setOnAction(e -> {
+            /**
+             * For testing purposes:
+             * g.display("Game", true, true);
+             * **/
             HostWindow.display("Host a game");
         });
         settings_btn.setOnAction(e -> {
