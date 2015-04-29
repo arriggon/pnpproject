@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.lang.Exception;
 import java.lang.Override;
@@ -18,6 +19,8 @@ public class Launcher extends Application{
     private Button host_btn;
     private Button settings_btn;
     private Button quit_btn;
+    private double xOffset;
+    private double yOffset;
 
     public static void main(String[] args){
         launch(args);
@@ -27,17 +30,37 @@ public class Launcher extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         //Stage and Layouts
-        primaryStage.setWidth(225);
-        primaryStage.setHeight(250);
+        primaryStage.setWidth(250);
+        primaryStage.setHeight(400);
         primaryStage.setTitle("PNPProject");
         BorderPane main = new BorderPane();
         VBox menu = new VBox(10);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+
+
+        main.setOnMousePressed(e -> {
+            xOffset = primaryStage.getX() - e.getScreenX();
+            yOffset = primaryStage.getY() - e.getScreenY();
+        });
+
+        main.setOnMouseDragged(e -> {
+            primaryStage.setX(e.getScreenX() + xOffset);
+            primaryStage.setY(e.getScreenY() + yOffset);
+        });
 
         //Initialization
         join_btn = new Button("Join a game");
         host_btn = new Button("Host a game");
         settings_btn = new Button("Settings");
         quit_btn = new Button("Quit the game");
+        join_btn.setPrefSize(100,30);
+        host_btn.setPrefSize(100, 30);
+        settings_btn.setPrefSize(100, 30);
+        quit_btn.setPrefSize(100, 30);
+        quit_btn.setStyle("-fx-focus-color: transparent; -fx-background-image: url('button_image.png'); -fx-text-fill: #000000; -fx-font-weight: bold; -fx-background-size: 100%");
+        settings_btn.setStyle("-fx-focus-color: transparent; -fx-background-image: url('button_image.png'); -fx-text-fill: #000000; -fx-font-weight: bold; -fx-background-size: 100%");
+        host_btn.setStyle("-fx-focus-color: transparent; -fx-background-image: url('button_image.png'); -fx-text-fill: #000000; -fx-font-weight: bold; -fx-background-size: 100%");
+        join_btn.setStyle("-fx-focus-color: transparent; -fx-background-image: url('button_image.png'); -fx-text-fill: #000000; -fx-font-weight: bold; -fx-background-size: 100%");
 
         //Actions
         join_btn.setOnAction(e -> {
