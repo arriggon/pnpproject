@@ -56,7 +56,7 @@ public class Launcher extends Application{
         host_btn = new Button("Host a game");
         settings_btn = new Button("Settings");
         quit_btn = new Button("Quit the game");
-        join_btn.setPrefSize(100,30);
+        join_btn.setPrefSize(100, 30);
         host_btn.setPrefSize(100, 30);
         settings_btn.setPrefSize(100, 30);
         quit_btn.setPrefSize(100, 30);
@@ -80,8 +80,19 @@ public class Launcher extends Application{
             //To be integrated
         });
         quit_btn.setOnAction(e -> {
-            //OptionPane.display();
-            primaryStage.close();
+            if (OptionPane.display("Quit", "Do you really want to quit?")) {
+                primaryStage.close();
+            } else {
+                //do nothing
+            }
+        });
+
+        primaryStage.setOnCloseRequest(e -> {
+            if (OptionPane.display("Quit", "Do you really want to quit?")) {
+                primaryStage.close();
+            } else {
+                //do nothing
+            }
         });
 
         menu.getChildren().addAll(join_btn, host_btn, settings_btn, quit_btn);
