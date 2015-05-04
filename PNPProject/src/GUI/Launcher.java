@@ -9,9 +9,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.lang.Exception;
-import java.lang.Override;
-
 public class Launcher extends Application{
     //Elements
     private Button join_btn;
@@ -20,6 +17,7 @@ public class Launcher extends Application{
     private Button quit_btn;
     private double xOffset;
     private double yOffset;
+    private GameWindow g = new GameWindow();
     /**
      * For testing purposes:
      * private GameWindow g = new GameWindow();
@@ -74,7 +72,9 @@ public class Launcher extends Application{
              * For testing purposes:
              * g.display("Game", true, true);
              * **/
-            HostWindow.display("Host a game");
+
+            g.display("Game", true, true);
+            //HostWindow.display("Host a game");
         });
         settings_btn.setOnAction(e -> {
             //To be integrated
@@ -91,7 +91,7 @@ public class Launcher extends Application{
             if (OptionPane.display("Quit", "Do you really want to quit?")) {
                 primaryStage.close();
             } else {
-                //do nothing
+                primaryStage.show();
             }
         });
 

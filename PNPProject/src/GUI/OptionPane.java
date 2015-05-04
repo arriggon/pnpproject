@@ -8,9 +8,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-/**
- * Created by Arriggon on 4/21/2015.
- */
 public class OptionPane {
     private static boolean y;
 

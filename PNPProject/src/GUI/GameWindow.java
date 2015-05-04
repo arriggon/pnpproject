@@ -2,9 +2,12 @@ package GUI;
 
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class GameWindow {
     private boolean isAdmin;
@@ -86,6 +89,18 @@ public class GameWindow {
         }else if(!isGM && !isAdmin){
             menu.getMenus().add(files);
         }
+        send_btn.setOnAction(e -> {
+            //for testing it only appends text to the chat
+            chat.appendText("\n"+input.getText());
+            input.setText("");
+        });
+        input.setOnKeyPressed(e->{
+            if(e.getCode().equals(KeyCode.ENTER)){
+                //for testing it only appends text to the chat
+                chat.appendText("\n"+input.getText());
+                input.setText("");
+            }
+        });
 
         //Add to layouts
         input_layout.getChildren().addAll(input, send_btn);
@@ -95,6 +110,10 @@ public class GameWindow {
         main_layout.setTop(menu);
 
         //Scene and Stage
+        /**
+         * For testing purposes:
+         * getUserByName(null);
+         * **/
         scene = new Scene(main_layout);
         window.setScene(scene);
         window.show();
@@ -114,5 +133,52 @@ public class GameWindow {
 
     public boolean getGM(){
         return this.isGM;
+    }
+
+    public void appendChatText(String text){
+        chat.appendText("\n" + text);
+    }
+
+    public void setChatText(String text){
+        chat.setText(text);
+    }
+
+    public String getChatText(){
+        return chat.getText();
+    }
+
+    public void addUser(String user){
+        if(user != null && user != "" && user.length() >= 3) {
+            users.getItems().add(user);
+        }else{
+            ErrorThrower.throwError(ErrorType.NAME);
+        }
+    }
+
+    public void addUserList(ArrayList<String> users){
+        for(String key : users){
+            if(key != null && key != "" && key.length() >= 3){
+                this.users.getItems().add(key);
+            }else{
+                ErrorThrower.throwError(ErrorType.NAME);
+            }
+        }
+    }
+
+    public String getUserById(int id){
+        return users.getItems().get(id);
+    }
+
+    public String getUserByName(String name){
+        if (name != null && name != "" && name.length() >= 3){
+            for(int i = 0; i < users.getItems().toArray().length; i++){
+                if(name.equals(users.getItems().toArray()[i].toString())){
+                    return users.getItems().get(i);
+                }
+            }
+        }else{
+            ErrorThrower.throwError(ErrorType.NAME);
+        }
+        return null;
     }
 }
