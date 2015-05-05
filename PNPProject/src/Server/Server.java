@@ -25,12 +25,14 @@ public class Server {
     private Future connectionEstablished;
     private ChatObserver chatObserver;
     private Owner owner;
+    private GameWindow gameWindow;
 
     public Server(String password, String name, GameWindow gwin) throws Exception {
         setName(name);
         setPassword(password);
         serverThreads = Executors.newCachedThreadPool();
         connections = new ConcurrentHashMap<Client, Connection>();
+        gameWindow = gwin;
     }
 
     public String getPassword() {
@@ -74,6 +76,10 @@ public class Server {
 
     public ExecutorService getServerThreads() {
         return serverThreads;
+    }
+
+    public GameWindow getC() {
+        return gameWindow;
     }
 
 }

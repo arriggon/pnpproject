@@ -17,7 +17,7 @@ public class Launcher extends Application{
     private Button quit_btn;
     private double xOffset;
     private double yOffset;
-    //private GameWindow g = new GameWindow();
+    private GameWindow g = new GameWindow();
     /**
      * For testing purposes:
      * private GameWindow g = new GameWindow();
@@ -73,7 +73,7 @@ public class Launcher extends Application{
              * g.display("Game", true, true);
              * **/
 
-            //g.display("Game", true, true);
+            g.display("Game", true, true);
             HostWindow.display("Host a game");
         });
         settings_btn.setOnAction(e -> {

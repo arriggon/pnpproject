@@ -30,6 +30,7 @@ public class ChatObserver {
 
     public void addUnit(ChatUnit cu) {
         history.add(cu);
+
         lastEntered.incrementAndGet();
     }
 
