@@ -9,6 +9,7 @@ import Server.Model.Connection;
 import Server.Rights.Laws;
 
 import java.security.acl.Owner;
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -80,6 +81,11 @@ public class Server {
 
     public GameWindow getC() {
         return gameWindow;
+    }
+
+    public ArrayList<Connection> getConnected() {
+        ArrayList<Connection> connected = new ArrayList<Connection>(connections.values());
+        return connected;
     }
 
 }
