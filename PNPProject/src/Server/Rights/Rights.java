@@ -1,4 +1,4 @@
-package ServerNNN.Rights;
+package Server.Rights;
 
 /**
  * Created by RAIDER on 27.04.2015.

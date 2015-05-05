@@ -1,7 +1,7 @@
-package ServerNNN.Lobby.Model.Items;
+package Server.Lobby.Model.Items;
 
-import ServerNNN.Lobby.Model.Item;
-import ServerNNN.Lobby.Model.ItemType;
+import Server.Lobby.Model.Item;
+import Server.Lobby.Model.ItemType;
 
 /**
  * Created by RAIDER on 27.04.2015.

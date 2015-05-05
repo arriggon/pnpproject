@@ -1,7 +1,7 @@
-package ServerNNN;
+package Server;
 
-import ServerNNN.Model.Client;
-import ServerNNN.Model.Connection;
+import Server.Model.Client;
+import Server.Model.Connection;
 import javafx.scene.control.Alert;
 
 import java.io.IOException;

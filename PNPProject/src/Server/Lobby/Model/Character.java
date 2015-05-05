@@ -1,4 +1,4 @@
-package ServerNNN.Lobby.Model;
+package Server.Lobby.Model;
 
 import java.util.ArrayList;
 

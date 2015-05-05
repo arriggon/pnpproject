@@ -1,6 +1,6 @@
-package ServerNNN.Rights;
+package Server.Rights;
 
-import ServerNNN.Model.Client;
+import Server.Model.Client;
 
 import java.util.concurrent.ConcurrentHashMap;
 

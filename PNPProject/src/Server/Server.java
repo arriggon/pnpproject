@@ -1,11 +1,11 @@
-package ServerNNN;
+package Server;
 
 import GUI.Controller;
-import ServerNNN.Chat.ChatObserver;
-import ServerNNN.Lobby.Lobby;
-import ServerNNN.Model.Client;
-import ServerNNN.Model.Connection;
-import ServerNNN.Rights.Laws;
+import Server.Chat.ChatObserver;
+import Server.Lobby.Lobby;
+import Server.Model.Client;
+import Server.Model.Connection;
+import Server.Rights.Laws;
 
 import java.security.acl.Owner;
 import java.util.concurrent.ConcurrentHashMap;
@@ -48,7 +48,7 @@ public class Server {
 
     public void setName(String name) throws Exception {
         if(name == null) {
-            throw new Exception("ServerNNN: name: Null Reference given");
+            throw new Exception("Server: name: Null Reference given");
         }
         this.name = name;
     }

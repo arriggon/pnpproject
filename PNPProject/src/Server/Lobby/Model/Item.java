@@ -1,4 +1,4 @@
-package ServerNNN.Lobby.Model;
+package Server.Lobby.Model;
 
 /**
  * Created by RAIDER on 27.04.2015.

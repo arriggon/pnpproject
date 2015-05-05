@@ -1,8 +1,8 @@
-package ServerNNN.Chat;
+package Server.Chat;
 
-import ServerNNN.Chat.Model.ChatUnit;
-import ServerNNN.Model.Client;
-import ServerNNN.Model.Connection;
+import Server.Chat.Model.ChatUnit;
+import Server.Model.Client;
+import Server.Model.Connection;
 
 import java.io.IOException;
 

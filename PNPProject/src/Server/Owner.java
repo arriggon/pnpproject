@@ -1,6 +1,6 @@
-package ServerNNN;
+package Server;
 
-import ServerNNN.Model.Client;
+import Server.Model.Client;
 
 /**
  * Created by RAIDER on 27.04.2015.

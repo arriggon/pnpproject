@@ -1,4 +1,4 @@
-package ServerNNN;
+package Server;
 
 /**
  * Created by Alexander on 27.04.2015.

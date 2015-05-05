@@ -1,9 +1,9 @@
-package ServerNNN.Chat;
+package Server.Chat;
 
 import GUI.Controller;
-import ServerNNN.Chat.Model.ChatUnit;
-import ServerNNN.Model.Client;
-import ServerNNN.Model.Connection;
+import Server.Chat.Model.ChatUnit;
+import Server.Model.Client;
+import Server.Model.Connection;
 
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,9 +20,9 @@ public class ChatObserver {
     private Controller gui;
     private AtomicLong lastEntered;
     private ConcurrentHashMap<Client, Future> chatters;
-    private ServerNNN.Server s;
+    private Server.Server s;
 
-    public ChatObserver(ServerNNN.Server s){
+    public ChatObserver(Server.Server s){
         history = new ConcurrentLinkedQueue<ChatUnit>();
         lastEntered = new AtomicLong(0);
         chatters = new ConcurrentHashMap<Client, Future>();
@@ -41,7 +41,7 @@ public class ChatObserver {
 
     }
 
-    public void addChatter(Client c, Connection co, ServerNNN.Server s) {
+    public void addChatter(Client c, Connection co, Server.Server s) {
         Chatter ci = new Chatter(c, co, this);
         Future f = s.getServerThreads().submit(ci);
         chatters.put(c, f);

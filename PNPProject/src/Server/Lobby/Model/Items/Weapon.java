@@ -1,20 +1,19 @@
-package ServerNNN.Lobby.Model.Items;
+package Server.Lobby.Model.Items;
 
-import ServerNNN.Lobby.Model.Item;
-import ServerNNN.Lobby.Model.ItemType;
+import Server.Lobby.Model.Item;
+import Server.Lobby.Model.ItemType;
 
 /**
  * Created by RAIDER on 27.04.2015.
  */
-public class Armor implements Item {
-    public String name;
-    public String type;
-    public long strength, constitution, dexterity, inteligence, wisdom, charisma, luck;
+public class Weapon  implements Item {
+    private String name;
+    private long wepStrenght, streanght, constitution, dexterity, inteligence, wisdom, charisma, luck;
 
-    public Armor(String name, String type, long strength, long constitution, long dexterity, long inteligence, long wisdom, long charisma, long luck) {
+    public Weapon(String name, long wepStrenght, long streanght, long constitution, long dexterity, long inteligence, long wisdom, long charisma, long luck) {
         this.name = name;
-        this.type = type;
-        this.strength = strength;
+        this.wepStrenght = wepStrenght;
+        this.streanght = streanght;
         this.constitution = constitution;
         this.dexterity = dexterity;
         this.inteligence = inteligence;
@@ -24,7 +23,6 @@ public class Armor implements Item {
     }
 
     public String getName() {
-
         return name;
     }
 
@@ -32,20 +30,20 @@ public class Armor implements Item {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public long getWepStrenght() {
+        return wepStrenght;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setWepStrenght(long wepStrenght) {
+        this.wepStrenght = wepStrenght;
     }
 
-    public long getStrength() {
-        return strength;
+    public long getStreanght() {
+        return streanght;
     }
 
-    public void setStrength(long strength) {
-        this.strength = strength;
+    public void setStreanght(long streanght) {
+        this.streanght = streanght;
     }
 
     public long getConstitution() {
@@ -98,6 +96,6 @@ public class Armor implements Item {
 
     @Override
     public ItemType getCategory() {
-        return ItemType.ARMOR;
+        return ItemType.WEAPON;
     }
 }

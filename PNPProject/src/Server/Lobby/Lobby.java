@@ -1,7 +1,7 @@
-package ServerNNN.Lobby;
+package Server.Lobby;
 
-import ServerNNN.Model.Client;
-import ServerNNN.Server;
+import Server.Model.Client;
+import Server.Server;
 
 import java.util.concurrent.ConcurrentHashMap;
 
