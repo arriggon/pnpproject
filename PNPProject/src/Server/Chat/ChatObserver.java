@@ -5,6 +5,7 @@ import Server.Chat.Model.ChatUnit;
 import Server.Model.Client;
 import Server.Model.Connection;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -30,6 +31,7 @@ public class ChatObserver {
 
     public void addUnit(ChatUnit cu) {
         history.add(cu);
+        s.getC().appendChatText("[" + cu.getUser() + "]: " + cu.getMessage());
 
         lastEntered.incrementAndGet();
     }
@@ -44,6 +46,21 @@ public class ChatObserver {
         Chatter ci = new Chatter(c, co, this);
         Future f = s.getServerThreads().submit(ci);
         chatters.put(c, f);
+    }
+
+    public void relayChat(ChatUnit cu) {
+        Iterator<Connection> i = s.getConnected().iterator();
+        while(i.hasNext()) {
+            Connection temp = i.next();
+            try {
+                temp.oos.writeObject(cu);
+                temp.oos.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
     }
 
 
