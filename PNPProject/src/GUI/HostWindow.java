@@ -1,5 +1,6 @@
 package GUI;
 
+import ServerN.Server;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -14,14 +15,16 @@ public class HostWindow {
         server_name.setPromptText("Server-Name");
         TextField usrname = new TextField();
         usrname.setPromptText("User-Name");
-        TextField ip_field = new TextField();
-        ip_field.setPromptText("IP");
+        TextField password_field = new TextField();
+        password_field.setPromptText("Password");
+        //TextField ip_field = new TextField();
+        //ip_field.setPromptText("IP");
         TextField port_field = new TextField();
         port_field.setPromptText("Port");
         Button connect_btn = new Button("Start");
         Button cancel_btn = new Button("Cancel");
         connect_btn.setOnAction(e -> {
-            //To be integrated
+
         });
         cancel_btn.setOnAction(e -> {
             primaryStage.close();
@@ -32,7 +35,7 @@ public class HostWindow {
         BorderPane main = new BorderPane();
         VBox layout = new VBox();
         VBox bottom = new VBox();
-        layout.getChildren().addAll(server_name,usrname,ip_field,port_field);
+        layout.getChildren().addAll(server_name,usrname,password_field,port_field);
         bottom.getChildren().addAll(connect_btn, cancel_btn);
         main.setCenter(layout);
         main.setBottom(bottom);

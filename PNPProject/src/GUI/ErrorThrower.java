@@ -19,6 +19,9 @@ public class ErrorThrower {
         message = new Label(type.getMessage()+"\nError-ID: "+type.getId());
         window.setTitle(type.getName());
         accept = new Button("Okay");
+        accept.setOnAction(e -> {
+            window.close();
+        });
         layout.setBottom(accept);
         layout.setCenter(message);
         scene = new Scene(layout,400,200);

@@ -12,6 +12,8 @@ public class JoinWindow{
         Stage primaryStage = new Stage();
         TextField usrname = new TextField();
         usrname.setPromptText("User-Name");
+        TextField password_field = new TextField();
+        password_field.setPromptText("Password");
         TextField ip_field = new TextField();
         ip_field.setPromptText("IP");
         TextField port_field = new TextField();
@@ -30,7 +32,7 @@ public class JoinWindow{
         BorderPane main = new BorderPane();
         VBox layout = new VBox();
         VBox bottom = new VBox();
-        layout.getChildren().addAll(usrname,ip_field,port_field);
+        layout.getChildren().addAll(usrname,password_field,ip_field,port_field);
         bottom.getChildren().addAll(connect_btn, cancel_btn);
         main.setCenter(layout);
         main.setBottom(bottom);
