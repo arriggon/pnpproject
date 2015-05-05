@@ -1,6 +1,5 @@
 package GUI;
 
-import ServerN.Server;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;

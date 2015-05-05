@@ -1,6 +1,6 @@
 package Server.Chat;
 
-import GUI.Controller;
+
 import Server.Chat.Model.ChatUnit;
 import Server.Model.Client;
 import Server.Model.Connection;
@@ -17,7 +17,6 @@ import java.util.concurrent.atomic.AtomicLong;
 public class ChatObserver {
 
     private ConcurrentLinkedQueue<ChatUnit> history;
-    private Controller gui;
     private AtomicLong lastEntered;
     private ConcurrentHashMap<Client, Future> chatters;
     private Server.Server s;
@@ -31,7 +30,6 @@ public class ChatObserver {
 
     public void addUnit(ChatUnit cu) {
         history.add(cu);
-        s.getC().handOverMessage(cu.getUser().getUsername(), cu.getMessage());
         lastEntered.incrementAndGet();
     }
 

@@ -1,6 +1,7 @@
 package Server;
 
-import GUI.Controller;
+
+import GUI.GameWindow;
 import Server.Chat.ChatObserver;
 import Server.Lobby.Lobby;
 import Server.Model.Client;
@@ -24,14 +25,12 @@ public class Server {
     private Future connectionEstablished;
     private ChatObserver chatObserver;
     private Owner owner;
-    private Controller c;
 
-    public Server(String password, String name, Controller controller) throws Exception {
+    public Server(String password, String name, GameWindow gwin) throws Exception {
         setName(name);
         setPassword(password);
         serverThreads = Executors.newCachedThreadPool();
         connections = new ConcurrentHashMap<Client, Connection>();
-        c = controller;
     }
 
     public String getPassword() {
@@ -77,7 +76,4 @@ public class Server {
         return serverThreads;
     }
 
-    public Controller getC() {
-        return c;
-    }
 }

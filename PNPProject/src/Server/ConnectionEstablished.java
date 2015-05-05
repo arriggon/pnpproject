@@ -2,7 +2,6 @@ package Server;
 
 import Server.Model.Client;
 import Server.Model.Connection;
-import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -56,17 +55,9 @@ public class ConnectionEstablished implements Runnable {
 
             }
         } catch (IOException e) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Exception occured");
-            a.setHeaderText("Opps, an Exception occured");
-            a.setContentText(e.getMessage());
-            a.showAndWait();
+
         } catch (ClassNotFoundException e) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Exception occured");
-            a.setHeaderText("Opps, an Exception occured");
-            a.setContentText(e.getMessage());
-            a.showAndWait();
+
         }
 
     }
