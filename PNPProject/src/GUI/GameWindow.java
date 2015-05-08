@@ -1,6 +1,8 @@
 package GUI;
 
+import TestServer.ChatObserver;
 import TestServer.InputWatcher;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -8,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.lang.management.PlatformLoggingMXBean;
 import java.util.ArrayList;
 
 public class GameWindow {
@@ -44,13 +47,31 @@ public class GameWindow {
     private Scene scene;
     private BorderPane main_layout;
     private HBox input_layout;
-    private InputWatcher in;
+    private InputWatcher in;        //Meine Addins: Chatter
+    private ChatObserver observer; //Observer: Asynchrone Daten:
 
-    public void setIn(InputWatcher i) {
+    public void setIn(InputWatcher i) {     //InputWatcher: Funktioniert, da er vom javaFX Thread aufgerufen wird
         in = i;
         send_btn.setOnAction(e ->
             in.run(input.getText()));
+
+        input.setOnKeyPressed(e->{
+            if(e.getCode().equals(KeyCode.ENTER)){
+                //for testing it only appends text to the chat
+                in.run(input.getText());
+            }
+        });
     }
+
+    public ChatObserver getObserver() { //Observer: Mein VErsuch fürs Asyncrone Datenmodell
+        if(observer == null) {
+            observer = new ChatObserver(this);
+            Platform.runLater(observer);
+        }
+        return observer;
+    }
+
+
 
 
 

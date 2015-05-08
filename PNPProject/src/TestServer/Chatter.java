@@ -30,7 +30,7 @@ public class Chatter implements Runnable {
         Object  o = null;
         try {
         	while(!stop.get()) {
-                if(s.getInputStream().available()>0) {
+                if(true) {
                     o = ios.readObject();
                     com.sendAll(o.toString(), this);
                 }

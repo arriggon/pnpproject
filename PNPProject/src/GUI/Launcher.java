@@ -16,7 +16,7 @@ import java.util.concurrent.Future;
 
 public class Launcher extends Application{
 
-    public static final ExecutorService mainThreads = Executors.newCachedThreadPool();
+    public static final ExecutorService mainThreads = Executors.newSingleThreadExecutor();
     public static Future serverF = null;
     //Elements
     private Button join_btn;

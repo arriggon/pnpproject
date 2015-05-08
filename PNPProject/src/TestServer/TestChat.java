@@ -32,7 +32,7 @@ public class TestChat implements Runnable {
     public void main(int port) {
         ServerSocket s = null;
         try {
-            ConnectionManagement cm = new ConnectionManagement();
+            ConnectionManagement cm = new ConnectionManagement(gm);
             InputWatcher im = new InputWatcher(cm, gm);
             s = new ServerSocket(0);
             s.setSoTimeout(1000);
@@ -42,14 +42,14 @@ public class TestChat implements Runnable {
 
 
 
-            while(true && !Launcher.serverF.isCancelled()) {
+            while(true) {
                 try {
                     Socket sa = s.accept();
                     ObjectInputStream ios = new ObjectInputStream(sa.getInputStream());
                     ObjectOutputStream oos = new ObjectOutputStream(sa.getOutputStream());
                     Chatter c = new Chatter(sa, ios, oos, cm);
                     cm.addConnection(c);
-                    Launcher.mainThreads.submit(c);
+
                 }catch(InterruptedIOException e) {
                 }
                 if(Launcher.serverF.isCancelled()) {
@@ -77,29 +77,28 @@ public class TestChat implements Runnable {
     public void run() {
         ServerSocket s = null;
         try {
-            ConnectionManagement cm = new ConnectionManagement();
+            ConnectionManagement cm = new ConnectionManagement(gm);
             InputWatcher im = new InputWatcher(cm, gm);
             s = new ServerSocket(0);
             s.setSoTimeout(1000);
-            gm.appendChatText("Port: "+s.getLocalPort());
+            gm.getObserver().addMessage("Port: "+s.getLocalPort());
+            //gm.appendText("Port: "+s.getLocalPort()); //Hier gab es immer eine Illegal state exception
+            gm.setIn(im);
 
 
 
 
 
-            while(true ) {
+            while(true) {
                 try {
                     Socket sa = s.accept();
                     ObjectInputStream ios = new ObjectInputStream(sa.getInputStream());
                     ObjectOutputStream oos = new ObjectOutputStream(sa.getOutputStream());
-                    Chatter c = new Chatter(sa, ios, oos, cm);
+                    Chatter c = new Chatter(sa, ios, oos, cm);      //Chatter
                     cm.addConnection(c);
-                    Launcher.mainThreads.submit(c);
                 }catch(InterruptedIOException e) {
                 }
-                if(Launcher.serverF.isCancelled()) {
-                    cm.stopAll();
-                }
+
 
             }
 
