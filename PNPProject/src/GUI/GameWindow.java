@@ -52,6 +52,8 @@ public class GameWindow {
             in.run(input.getText()));
     }
 
+
+
     public void display(String title, boolean isAdmin, boolean isGM){
         //Init
         window = new Stage();
@@ -124,6 +126,14 @@ public class GameWindow {
          * **/
         scene = new Scene(main_layout);
         window.setScene(scene);
+        window.setOnCloseRequest(e -> {
+            e.consume();
+            if(Launcher.serverF != null) {
+                Launcher.serverF.cancel(true);
+                Launcher.mainThreads.shutdown();
+            }
+            window.close();
+        });
         window.show();
     }
 

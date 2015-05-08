@@ -9,7 +9,15 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class Launcher extends Application{
+
+    public static final ExecutorService mainThreads = Executors.newCachedThreadPool();
+    public static Future serverF = null;
     //Elements
     private Button join_btn;
     private Button host_btn;
@@ -17,6 +25,7 @@ public class Launcher extends Application{
     private Button quit_btn;
     private double xOffset;
     private double yOffset;
+
     private GameWindow g = new GameWindow();
     /**
      * For testing purposes:
@@ -82,6 +91,7 @@ public class Launcher extends Application{
         quit_btn.setOnAction(e -> {
             if (OptionPane.display("Quit", "Do you really want to quit?")) {
                 primaryStage.close();
+                System.exit(0);
             } else {
                 //do nothing
             }

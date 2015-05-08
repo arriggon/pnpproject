@@ -29,9 +29,8 @@ public class HostWindow {
         connect_btn.setOnAction(e -> {
             GameWindow gm = new GameWindow();
             gm.display("Title", true, true);
-            ExecutorService ser = Executors.newCachedThreadPool();
             TestChat c = new TestChat(gm);
-            ser.submit(c);
+           Launcher.serverF = Launcher.mainThreads.submit(c);
         });
         cancel_btn.setOnAction(e -> {
             primaryStage.close();

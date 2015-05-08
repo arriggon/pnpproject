@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by Alexander on 28.04.2015.
@@ -14,21 +15,25 @@ public class Chatter implements Runnable {
     private ObjectInputStream ios;
     private ObjectOutputStream oos;
     private ConnectionManagement com;
+    private AtomicBoolean stop;
 
     public Chatter(Socket s, ObjectInputStream ios, ObjectOutputStream oos, ConnectionManagement com) {
         this.s = s;
         this.ios = ios;
         this.oos = oos;
-        this.com = com;
+
+        stop = new AtomicBoolean(false);
     }
 
     @Override
     public void run() {
         Object  o = null;
         try {
-        	while(true) {
-        		o = ios.readObject();
-                com.sendAll(o.toString(), this);
+        	while(!stop.get()) {
+                if(s.getInputStream().available()>0) {
+                    o = ios.readObject();
+                    com.sendAll(o.toString(), this);
+                }
         	}
             
         } catch (IOException e) {
@@ -47,5 +52,10 @@ public class Chatter implements Runnable {
             e.printStackTrace();
         }
 
+    }
+
+    public void stop() {
+        stop.set(true);
+        com.removeConnection(this);
     }
 }

@@ -37,4 +37,11 @@ public class ConnectionManagement {
         }
     }
 
+    public void stopAll() {
+        Iterator<Chatter> i = ooss.iterator();
+        while (i.hasNext()) {
+            i.next().stop();
+        }
+    }
+
 }
