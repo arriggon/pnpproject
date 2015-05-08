@@ -25,7 +25,7 @@ public class Server {
     private ConcurrentHashMap<Client, Connection> connections;
     private Future connectionEstablished;
     private ChatObserver chatObserver;
-    private Owner owner;
+    private Client owner;
     private GameWindow gameWindow;
 
     public Server(String password, String name, GameWindow gwin) throws Exception {
@@ -87,5 +87,7 @@ public class Server {
         ArrayList<Connection> connected = new ArrayList<Connection>(connections.values());
         return connected;
     }
+
+    public Client getOwner(){return owner;}
 
 }

@@ -1,11 +1,15 @@
 package GUI;
 
+import TestServer.TestChat;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class HostWindow {
     public static void display(String title){
@@ -23,7 +27,11 @@ public class HostWindow {
         Button connect_btn = new Button("Start");
         Button cancel_btn = new Button("Cancel");
         connect_btn.setOnAction(e -> {
-
+            GameWindow gm = new GameWindow();
+            gm.display("Title", true, true);
+            ExecutorService ser = Executors.newCachedThreadPool();
+            TestChat c = new TestChat(gm);
+            ser.submit(c);
         });
         cancel_btn.setOnAction(e -> {
             primaryStage.close();

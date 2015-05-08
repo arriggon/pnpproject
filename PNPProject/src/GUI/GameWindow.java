@@ -1,5 +1,6 @@
 package GUI;
 
+import TestServer.InputWatcher;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -43,6 +44,13 @@ public class GameWindow {
     private Scene scene;
     private BorderPane main_layout;
     private HBox input_layout;
+    private InputWatcher in;
+
+    public void setIn(InputWatcher i) {
+        in = i;
+        send_btn.setOnAction(e ->
+            in.run(input.getText()));
+    }
 
     public void display(String title, boolean isAdmin, boolean isGM){
         //Init
