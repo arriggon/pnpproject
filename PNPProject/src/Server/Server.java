@@ -19,7 +19,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * Created by RAIDER on 08.05.2015.
  */
 public class Server extends Task<Void>{
-    //Model
+    //Service
     private UserList userList;
     private ChatList chatList;
     private DataInput dataInput;

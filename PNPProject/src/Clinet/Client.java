@@ -18,10 +18,11 @@ public class Client extends Task<Void> {
     private ExecutorService service;
     private ChatList chatList;
     private UserList userList;
+    private String username, ipAddress;
 
 
 
-    public Client(ChatList cL, UserList uL) {
+    public Client(ChatList cL, UserList uL, String username, String ipAddress) {
 
         service = Executors.newCachedThreadPool(new ThreadFactory() {
             @Override
@@ -35,6 +36,8 @@ public class Client extends Task<Void> {
         chatList = cL;
         userList = uL;
 
+        this.username = username;
+        this.ipAddress = ipAddress;
 
 
 
@@ -48,5 +51,7 @@ public class Client extends Task<Void> {
     @Override
     protected Void call() throws Exception {
 
+
+        return null;
     }
 }
