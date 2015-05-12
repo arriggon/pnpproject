@@ -1,7 +1,7 @@
-package GUI;
+package GUIOld;
 
 public enum ErrorType {
-    NAME(0,"Name-Error", "The name you entered is not valid!\nPlease check the following criteria:\n• The name is not null\n• The name is not empty\n• The name is three or more characters long");
+    NAME(0,"Name-Error", "The name you entered is not valid!\nPlease check the following criteria:\nï¿½ The name is not null\nï¿½ The name is not empty\nï¿½ The name is three or more characters long");
 
 
     private final int id;

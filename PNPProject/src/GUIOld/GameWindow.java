@@ -1,4 +1,4 @@
-package GUI;
+package GUIOld;
 
 import TestServer.ChatObserver;
 import TestServer.InputWatcher;
@@ -10,7 +10,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.lang.management.PlatformLoggingMXBean;
 import java.util.ArrayList;
 
 public class GameWindow {

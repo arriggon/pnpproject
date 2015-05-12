@@ -1,4 +1,4 @@
-package GUI;
+package GUIOld;
 
 import TestServer.TestChat;
 import javafx.scene.Scene;
@@ -7,9 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class HostWindow {
     public static void display(String title){
