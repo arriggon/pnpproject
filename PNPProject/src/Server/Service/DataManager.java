@@ -69,7 +69,7 @@ public class DataManager extends Service<Void> {
                             if (ServerUser.class.isInstance(e)) {
                                 ServerUser user = (ServerUser) e;
                                 try {
-                                    user.getOos().writeObject(chatUnit.getMessage());
+                                    user.getOos().writeObject(chatUnit);
                                     user.getOos().flush();
                                 } catch (IOException e1) {
                                     e1.printStackTrace();

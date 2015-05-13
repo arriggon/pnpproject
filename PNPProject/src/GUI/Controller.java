@@ -79,7 +79,6 @@ public class Controller {
 
         try {
             server = new Server(userList, chatList);
-            client = new Client(chatList, userList);
         } catch (IOException e) {
             e.printStackTrace();
             Platform.exit();
