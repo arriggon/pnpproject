@@ -5,6 +5,7 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,7 +14,7 @@ import java.net.*;
 /**
  * Created by Alexander on 12.05.2015.
  */
-public class WhoOpensTheConnection extends Service<Socket> {
+public class WhoOpensTheConnection extends Service<DataRetriever> {
 
     private String username;
     private String serverIp;
@@ -30,10 +31,13 @@ public class WhoOpensTheConnection extends Service<Socket> {
 
         this.setOnSucceeded(e -> {
             try {
-                dataRetriever = new DataRetriever(WhoOpensTheConnection.this.getValue(), chatList, new ObjectInputStream(WhoOpensTheConnection.this.getValue().getInputStream()), new ObjectOutputStream(WhoOpensTheConnection.this.getValue().getOutputStream()));
-                dataRetriever.start();
-            } catch (IOException e1) {
-                e1.printStackTrace();
+                DataRetriever dataRetriever1 = WhoOpensTheConnection.this.getValue();
+                if(dataRetriever1 != null ) {
+                    this.dataRetriever = dataRetriever1;
+                    dataRetriever.start();
+                }
+            }finally {
+
             }
 
         });
@@ -43,16 +47,15 @@ public class WhoOpensTheConnection extends Service<Socket> {
 
 
     @Override
-    protected Task<Socket> createTask() {
+    protected Task<DataRetriever> createTask() {
         final String serverIp = this.serverIp;
         final int port = this.port;
-        return new Task<Socket>() {
+        return new Task<DataRetriever>() {
             @Override
-            protected Socket call() throws Exception {
+            protected DataRetriever call() throws Exception {
                 ObjectInputStream ios = null;
                 ObjectOutputStream oos = null;
                 Socket s = null;
-                try {
                     s = new Socket();
                     s.setSoTimeout(100);
                     s.connect(new InetSocketAddress(serverIp, port));
@@ -69,17 +72,12 @@ public class WhoOpensTheConnection extends Service<Socket> {
                             throw new Exception("Connection failed");
                         }
                     }
-                }finally {
-                    if(ios != null) {
-                        ios.close();
-                    }
-                    if(oos != null) {
-                        oos.close();
-                    }
-                }
+
+                DataRetriever d = new DataRetriever(s, chatList, ios, oos);
 
 
-                return s;
+
+                return  d;
             }
         };
     }

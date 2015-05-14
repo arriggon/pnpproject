@@ -125,6 +125,18 @@ public class Controller {
             Optional<String> op1 = d.showAndWait();
             if(op1.get() != "") {
                 System.out.println("Username: "+op.get()+"\nServer IP: "+op1.get());
+                d.setTitle("Port");
+                d.setHeaderText("Please enter Port");
+                d.setContentText("Port: ");
+                d.getEditor().setText("");
+                Optional<String> s = d.showAndWait();
+                if(op1.get() != "") {
+                    String username = op.get();
+                    String severIp = op1.get();
+                    int port = Integer.parseInt(s.get());
+                    client = new Client(chatList, userList, username, severIp, port);
+//                    client.start();
+                }
             }
         }
     }

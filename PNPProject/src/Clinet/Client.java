@@ -19,10 +19,11 @@ public class Client extends Task<Void> {
     private ChatList chatList;
     private UserList userList;
     private String username, ipAddress;
+    private int port;
 
 
 
-    public Client(ChatList cL, UserList uL, String username, String ipAddress) {
+    public Client(ChatList cL, UserList uL, String username, String ipAddress, int port) {
 
         service = Executors.newCachedThreadPool(new ThreadFactory() {
             @Override
@@ -38,6 +39,8 @@ public class Client extends Task<Void> {
 
         this.username = username;
         this.ipAddress = ipAddress;
+
+        this.port = port;
 
 
 
