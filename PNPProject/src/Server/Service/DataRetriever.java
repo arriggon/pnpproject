@@ -64,7 +64,7 @@ public class DataRetriever extends Service<ChatUnit> {
                     Object o = ios.readObject();
                     if(String.class.isInstance(o)){
                         String s = (String) o;
-                        ChatUnit chatUnit = new ChatUnit(u, s);
+                        ChatUnit chatUnit = new ChatUnit(u.getUsername(), s);
                         return chatUnit;
                     }
 

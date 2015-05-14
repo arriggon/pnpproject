@@ -1,24 +1,26 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
  * Created by RAIDER on 08.05.2015.
  */
-public class ChatUnit {
+public class ChatUnit implements Serializable {
 
-    private User u;
+    private String username;
     private String message;
 
-    public ChatUnit(User u, String message) {
-        this.u = u;
+    public ChatUnit(String username, String message) {
+        this.username = username;
         this.message = message;
     }
 
-    public User getU() {
-        return u;
+    public String getU() {
+        return username;
     }
 
-    public void setU(User u) {
-        this.u = u;
+    public void setU(String u) {
+        this.username = u;
     }
 
     public String getMessage() {
@@ -31,6 +33,6 @@ public class ChatUnit {
 
     @Override
     public String toString() {
-        return "["+u.getUsername()+"]: "+message;
+        return "["+username+"]: "+message;
     }
 }

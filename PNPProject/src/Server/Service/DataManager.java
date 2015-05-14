@@ -65,7 +65,7 @@ public class DataManager extends Service<Void> {
                     while (i.hasNext()) {
                         ChatUnit chatUnit = i.next();
                         chatList.addChatUnit(chatUnit);
-                        userList.getList().parallelStream().filter(t -> !t.equals(chatUnit.getU())).forEach(e -> {
+                        userList.getList().parallelStream().forEach(e -> {
                             if (ServerUser.class.isInstance(e)) {
                                 ServerUser user = (ServerUser) e;
                                 try {
