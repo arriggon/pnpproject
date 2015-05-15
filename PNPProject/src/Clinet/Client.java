@@ -1,5 +1,6 @@
 package Clinet;
 
+import Clinet.Service.WhoOpensTheConnection;
 import Model.ChatList;
 import Model.UserList;
 import javafx.concurrent.Task;
@@ -21,6 +22,10 @@ public class Client extends Task<Void> {
     private String username, ipAddress;
     private int port;
 
+    private WhoOpensTheConnection whoOpensTheConnection;
+
+
+    private boolean whoIsRunningOnce;
 
 
     public Client(ChatList cL, UserList uL, String username, String ipAddress, int port) {
@@ -42,9 +47,18 @@ public class Client extends Task<Void> {
 
         this.port = port;
 
+        this.whoIsRunningOnce = false;
+        this.whoOpensTheConnection = null;
 
 
+    }
 
+    public void start() {
+        this.service.submit(this);
+    }
+
+    public void send(String string) {
+        whoOpensTheConnection.send(string);
     }
 
 
@@ -53,7 +67,16 @@ public class Client extends Task<Void> {
 
     @Override
     protected Void call() throws Exception {
+        if(!isCancelled()) {
 
+            if(!whoIsRunningOnce) {
+                whoOpensTheConnection = new WhoOpensTheConnection(username,ipAddress, port, chatList);
+                whoOpensTheConnection.start();
+            }
+
+        }
+
+        whoOpensTheConnection.stop();
 
         return null;
     }

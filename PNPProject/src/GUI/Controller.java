@@ -135,9 +135,22 @@ public class Controller {
                     String severIp = op1.get();
                     int port = Integer.parseInt(s.get());
                     client = new Client(chatList, userList, username, severIp, port);
-//                    client.start();
+                    client.start();
+                    button_B.setOnAction( e -> {
+                        client.send(send_text_TF.getText());
+                    });
                 }
             }
+        }
+    }
+
+    public void closeAll() {
+        if(client != null) {
+            client.cancel();
+        }
+
+        if(server != null) {
+            server.cancel();
         }
     }
 }

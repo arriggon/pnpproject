@@ -6,6 +6,7 @@ import Server.Server;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -50,6 +51,33 @@ public class DataRetriever extends Service<ChatUnit> {
         });
     }
 
+    public void send(String str) {
+        try {
+            oos.writeObject(str);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void stop() {
+        this.setOnSucceeded(e -> {
+            return;
+        });
+
+        this.setOnFailed( e -> {
+            return;
+        });
+
+        try {
+            socket.close();
+            ios.close();
+            oos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
     protected Task<ChatUnit> createTask() {

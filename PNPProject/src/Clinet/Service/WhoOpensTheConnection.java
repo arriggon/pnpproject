@@ -44,6 +44,18 @@ public class WhoOpensTheConnection extends Service<DataRetriever> {
 
     }
 
+    public void send(String str) {
+        dataRetriever.send(str);
+    }
+
+    public void stop() {
+        this.setOnSucceeded(e -> {
+            return;
+        });
+
+        dataRetriever.stop();
+    }
+
 
 
     @Override

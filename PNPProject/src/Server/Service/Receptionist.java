@@ -31,8 +31,8 @@ public class Receptionist extends Service<User> {
         this.s = new ServerSocket(0);
         this.s.setSoTimeout(1500);
         User serveru = new User("Server");
-        chatList.addChatUnit(new ChatUnit(serveru, "Port: " + s.getLocalPort()));
-        chatList.addChatUnit(new ChatUnit(serveru, "Server Address: "+InetAddress.getLocalHost().toString()));
+        chatList.addChatUnit(new ChatUnit(serveru.getUsername(), "Port: " + s.getLocalPort()));
+        chatList.addChatUnit(new ChatUnit(serveru.getUsername(), "Server Address: "+InetAddress.getLocalHost().toString()));
         Receptionist th = this;
 
         this.setOnSucceeded(

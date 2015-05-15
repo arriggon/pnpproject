@@ -9,16 +9,30 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.io.ObjectInputStream;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        Object rootA = loader.load();
+        Parent root = null;
+        if(Parent.class.isInstance(rootA)) {
+            root = (Parent) rootA;
+        }
+        Object o = loader.getController();
+        Controller c = null;
+        if(o instanceof Controller) {
+            c = (Controller) o;
+
+        }
         primaryStage.setTitle("PNP Project");
         primaryStage.setScene(new Scene(root));
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
+                c.closeAll();
                 Platform.exit();
                 System.exit(0);
             }
