@@ -9,13 +9,12 @@ import java.net.URL;
 import java.util.*;
 
 import Clinet.Client;
-import Model.ChatList;
-import Model.ChatUnit;
-import Model.User;
-import Model.UserList;
+import Model.*;
 import Server.Server;
 import javafx.application.Platform;
 import javafx.beans.binding.Binding;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -23,7 +22,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.Callback;
 
+import javax.jws.soap.SOAPBinding;
 import javax.script.Bindings;
 
 
@@ -64,6 +65,7 @@ public class Controller {
 
 
 
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         assert chat_list != null : "fx:id=\"chat_list\" was not injected: check your FXML file 'main.fxml'.";
@@ -73,6 +75,59 @@ public class Controller {
         userList = new UserList();
         javafx.beans.binding.Bindings.bindContentBidirectional(userList.getList(), chat_list.getItems());
         chatList = new ChatList(null);
+       chat_list.setCellFactory(new Callback<ListView<User>, ListCell<User>>() {
+           @Override
+           public ListCell<User> call(ListView<User> param) {
+               ListCell<User> userListCell = new ListCell<>();
+               ContextMenu contextMenu = new ContextMenu();
+
+               MenuItem get_ip_item = new MenuItem();
+               get_ip_item.setText("Get IP");
+               get_ip_item.setOnAction(new EventHandler<ActionEvent>() {
+                   @Override
+                   public void handle(ActionEvent event) {
+                       User u = userListCell.getItem();
+                       if(u instanceof ServerUser) {
+                           ServerUser su = (ServerUser) u;
+                           Alert a = new Alert(Alert.AlertType.INFORMATION);
+                           a.setHeaderText("IP Address of "+su.getUsername()+": "+su.getS().getInetAddress().getHostAddress());
+                           a.setOnCloseRequest(e -> {
+                               a.close();
+                           });
+                           a.show();
+                       }
+                   }
+               });
+
+
+               contextMenu.getItems().addAll(get_ip_item);
+
+               userListCell.emptyProperty().addListener(new ChangeListener<Boolean>() {
+                   @Override
+                   public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                       if(newValue) {
+                           userListCell.setContextMenu(null);
+                       } else {
+                           userListCell.setContextMenu(contextMenu);
+                       }
+                   }
+               });
+
+               userListCell.itemProperty().addListener(new ChangeListener<User>() {
+                   @Override
+                   public void changed(ObservableValue<? extends User> observable, User oldValue, User newValue) {
+                       if(newValue != null) {
+                           userListCell.setText(newValue.toString());
+                       }else {
+                           userListCell.setText("");
+                       }
+                   }
+               });
+
+               return userListCell;
+
+           }
+       });
 
         javafx.beans.binding.Bindings.bindContentBidirectional(chatList.getList(), chat_history.getItems());
 
@@ -108,6 +163,8 @@ public class Controller {
         });
 
         chat_list.getStylesheets().add(getClass().getResource("userList.css").toExternalForm());
+
+
 
 
 
