@@ -89,6 +89,10 @@ public class Controller {
 
         host_mi.setOnAction(e -> {
             server.start();
+            host_mi.setDisable(true);
+            button_B.setOnAction(e1 -> {
+                server.send(send_text_TF.getText());
+            });
         });
 
         join_mi.setOnAction(e -> {
@@ -102,6 +106,8 @@ public class Controller {
                 userList.addUser(new User(send_text_TF.getText()));
             }
         });
+
+        chat_list.getStylesheets().add(getClass().getResource("userList.css").toExternalForm());
 
 
 

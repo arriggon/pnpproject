@@ -12,9 +12,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "str='" + username + '\'' +
-                '}';
+        return "<"+username+">";
     }
 
     public String getUsername() {

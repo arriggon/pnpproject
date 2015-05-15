@@ -1,9 +1,6 @@
 package Server;
 
-import Model.ChatList;
-import Model.DataInput;
-import Model.User;
-import Model.UserList;
+import Model.*;
 import Server.Service.DataManager;
 import Server.Service.Receptionist;
 import javafx.concurrent.Service;
@@ -74,5 +71,10 @@ public class Server extends Task<Void>{
         dataManager.stop();
 
         return null;
+    }
+
+    public void send(String str) {
+        ChatUnit u = new ChatUnit("Server", str);
+        dataManager.send(u);
     }
 }

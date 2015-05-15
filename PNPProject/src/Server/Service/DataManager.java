@@ -49,6 +49,10 @@ public class DataManager extends Service<Void> {
 
     }
 
+    public void send(ChatUnit u) {
+        dataInput.add(u);
+    }
+
     @Override
     protected Task<Void> createTask() {
 

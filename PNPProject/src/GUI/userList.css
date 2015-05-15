@@ -1,0 +1,7 @@
+.list-cell:filled {
+
+    -fx-font-family: monospace;
+	-fx-font-style: italic;
+    -fx-font-weight: bold;
+	
+}
