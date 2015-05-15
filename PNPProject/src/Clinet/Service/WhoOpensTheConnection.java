@@ -1,5 +1,6 @@
 package Clinet.Service;
 
+import Clinet.Client;
 import Model.ChatList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -20,14 +21,16 @@ public class WhoOpensTheConnection extends Service<DataRetriever> {
     private String serverIp;
     private int port;
     private ChatList chatList;
+    private Client c;
 
     private DataRetriever dataRetriever;
 
-    public WhoOpensTheConnection(String username, String serverIp, int port, ChatList chatList) {
+    public WhoOpensTheConnection(String username, String serverIp, int port, ChatList chatList, Client c) {
         this.username = username;
         this.serverIp = serverIp;
         this.port = port;
         this.chatList = chatList;
+        this.c = c;
 
         this.setOnSucceeded(e -> {
             try {
@@ -35,6 +38,9 @@ public class WhoOpensTheConnection extends Service<DataRetriever> {
                 if(dataRetriever1 != null ) {
                     this.dataRetriever = dataRetriever1;
                     dataRetriever.start();
+                } else {
+                    this.c.cancel();
+                    this.c.showConnectionError();
                 }
             }finally {
 
@@ -53,8 +59,12 @@ public class WhoOpensTheConnection extends Service<DataRetriever> {
             return;
         });
 
-        dataRetriever.stop();
+        if(dataRetriever != null) {
+            dataRetriever.stop();
+        }
+
     }
+
 
 
 
@@ -69,7 +79,7 @@ public class WhoOpensTheConnection extends Service<DataRetriever> {
                 ObjectOutputStream oos = null;
                 Socket s = null;
                     s = new Socket();
-                    s.setSoTimeout(100);
+                    s.setSoTimeout(10000);
                     s.connect(new InetSocketAddress(serverIp, port));
 
                     ios = new ObjectInputStream(s.getInputStream());
@@ -80,6 +90,13 @@ public class WhoOpensTheConnection extends Service<DataRetriever> {
                         String so = (String) o;
                         if(so.equalsIgnoreCase("200")) {
                             oos.writeObject(username);
+                            o = ios.readObject();
+                            if(o instanceof String) {
+                                so = (String) o;
+                                if(so.equalsIgnoreCase("400")){
+                                    return null;
+                                }
+                            }
                         } else {
                             throw new Exception("Connection failed");
                         }

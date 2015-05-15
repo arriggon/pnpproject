@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.net.*;
 import java.util.Enumeration;
 import java.util.concurrent.ExecutorService;
+import java.util.function.Predicate;
 
 /**
  * Created by RAIDER on 08.05.2015.
@@ -70,6 +71,7 @@ public class Receptionist extends Service<User> {
     @Override
     protected Task<User> createTask() {
         final ServerSocket s = this.s;
+        final UserList userList = this.userList;
         return new Task<User>() {
             @Override
             protected User call() throws Exception {
@@ -85,7 +87,19 @@ public class Receptionist extends Service<User> {
 
                         oos.writeObject("200");
                         u = (String) ios.readObject();
-
+                        final String uS = u;
+                        boolean isThere = userList.getList().stream().anyMatch(new Predicate<User>() {
+                            @Override
+                            public boolean test(User user) {
+                                return user.getUsername().equals(uS);
+                            }
+                        });
+                        if(isThere) {
+                            oos.writeObject("400");
+                            return null;
+                        } else {
+                            oos.writeObject("401");
+                        }
 
                         return new ServerUser(u, sa, ios, oos);
                     }catch (SocketTimeoutException e) {

@@ -4,6 +4,7 @@ import Clinet.Service.WhoOpensTheConnection;
 import Model.ChatList;
 import Model.UserList;
 import javafx.concurrent.Task;
+import javafx.scene.control.Alert;
 import org.omg.CORBA.portable.ValueOutputStream;
 
 import java.util.concurrent.ExecutorService;
@@ -70,7 +71,7 @@ public class Client extends Task<Void> {
         if(!isCancelled()) {
 
             if(!whoIsRunningOnce) {
-                whoOpensTheConnection = new WhoOpensTheConnection(username,ipAddress, port, chatList);
+                whoOpensTheConnection = new WhoOpensTheConnection(username,ipAddress, port, chatList, this);
                 whoOpensTheConnection.start();
             }
 
@@ -79,5 +80,11 @@ public class Client extends Task<Void> {
         whoOpensTheConnection.stop();
 
         return null;
+    }
+
+    public void showConnectionError() {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setHeaderText("Could not Connect: Username already exist");
+        a.show();
     }
 }
