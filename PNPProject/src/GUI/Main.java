@@ -22,17 +22,21 @@ public class Main extends Application {
             root = (Parent) rootA;
         }
         Object o = loader.getController();
-        Controller c = null;
+        Controller co = null;
         if(o instanceof Controller) {
-            c = (Controller) o;
+            co = (Controller) o;
 
         }
+        final Controller c = co;
         primaryStage.setTitle("PNP Project");
         primaryStage.setScene(new Scene(root));
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                c.closeAll();
+                if(c != null) {
+                    c.closeAll();
+                }
+
                 Platform.exit();
                 System.exit(0);
             }
