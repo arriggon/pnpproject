@@ -1,6 +1,8 @@
 package Server.Service;
 
 import Model.*;
+import Model.Request.UserListCarrier;
+import Model.Request.UserListRequest;
 import Server.Server;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -9,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Predicate;
@@ -56,6 +59,23 @@ public class Receptionist extends Service<User> {
                             serverUser.setDataRetriever(dataRetriever);
                             dataRetriever.start();
                         }
+                        ArrayList<User> usersToTransfer = new ArrayList<User>();
+                        usersToTransfer.add(new User(user.getUsername()));
+                        userList.getList().stream().filter(new Predicate<User>() {
+                            @Override
+                            public boolean test(User user1) {
+                                return !(user1.getUsername() == user.getUsername());
+                            }
+                        }).forEach(e12 -> {
+                            if(e12 instanceof ServerUser) {
+                                ServerUser su = (ServerUser) e12;
+                                try {
+                                    su.getOos().writeObject(new UserListCarrier(usersToTransfer));
+                                } catch (IOException e1) {
+                                    e1.printStackTrace();
+                                }
+                            }
+                        });
                         u.addUser(th.getValue());
                         th.restart();
                     }
