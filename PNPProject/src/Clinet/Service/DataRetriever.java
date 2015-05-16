@@ -2,6 +2,7 @@ package Clinet.Service;
 
 import Model.ChatList;
 import Model.ChatUnit;
+import Model.DataOverNetwork;
 import Server.Server;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -17,7 +18,7 @@ import java.nio.channels.SocketChannel;
 /**
  * Created by Alexander on 12.05.2015.
  */
-public class DataRetriever extends Service<ChatUnit> {
+public class DataRetriever extends Service<DataOverNetwork> {
 
     private Socket socket;
     private ChatList list;
@@ -80,13 +81,13 @@ public class DataRetriever extends Service<ChatUnit> {
     }
 
     @Override
-    protected Task<ChatUnit> createTask() {
+    protected Task<DataOverNetwork> createTask() {
 
         final ObjectInputStream ios = this.ios;
 
-        return new Task<ChatUnit>() {
+        return new Task<DataOverNetwork>() {
             @Override
-            protected ChatUnit call() throws Exception {
+            protected DataOverNetwork call() throws Exception {
                 Object o = ios.readObject();
                 if(ChatUnit.class.isInstance(o)) {
                     return (ChatUnit)o;

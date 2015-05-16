@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by RAIDER on 08.05.2015.
  */
-public class ChatUnit implements Serializable {
+public class ChatUnit implements Serializable, DataOverNetwork {
 
     private String username;
     private String message;
