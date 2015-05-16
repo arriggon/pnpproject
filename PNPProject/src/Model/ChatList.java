@@ -19,11 +19,19 @@ public class ChatList {
 }
 
     public void addChatUnit(ChatUnit u) {
-
-        chatUnits.add(u);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                chatUnits.add(u);
+                if(chatUnits.size() >= 500) {
+                    chatUnits.remove(0, chatUnits.size()-501);
+                }
+            }
+        });
+        /*chatUnits.add(u);
         if(chatUnits.size() >= 500) {
             chatUnits.remove(0, chatUnits.size()-501);
-        }
+        }*/
     }
 
     public void removeChatUnit(ChatUnit u) {

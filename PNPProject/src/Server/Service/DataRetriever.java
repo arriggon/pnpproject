@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 /**
  * Created by RAIDER on 09.05.2015.
  */
-public class DataRetriever extends Service<ChatUnit> {
+public class DataRetriever extends Service<DataOverNetwork> {
 
     private ObjectInputStream ios;
     private User u;
@@ -32,7 +32,7 @@ public class DataRetriever extends Service<ChatUnit> {
             if(unit instanceof ChatUnit) {
                 System.out.print("Adding DATA\n");
                 ChatUnit u1 = (ChatUnit) unit;
-                dataInput.add(u1);
+                this.dataInput.add(u1);
             }
             DataRetriever.this.restart();
         });
@@ -56,11 +56,11 @@ public class DataRetriever extends Service<ChatUnit> {
     }
 
     @Override
-    protected Task<ChatUnit> createTask() {
+    protected Task<DataOverNetwork> createTask() {
         final ObjectInputStream ios = this.ios;
-        return new Task<ChatUnit>(){
+        return new Task<DataOverNetwork>(){
             @Override
-            protected ChatUnit call() throws Exception {
+            protected DataOverNetwork call() throws Exception {
                 if(true) {
                     Object o = ios.readObject();
                     if(String.class.isInstance(o)){
