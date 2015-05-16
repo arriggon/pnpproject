@@ -1,6 +1,7 @@
 package Server;
 
 import Model.*;
+import Model.Request.UserRemovalNotification;
 import Server.Service.DataManager;
 import Server.Service.Receptionist;
 import javafx.concurrent.Service;
@@ -15,6 +16,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -102,6 +104,24 @@ public class Server extends Task<Void>{
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            ArrayList<User> users = new ArrayList<>();
+            users.add(new User(u.getUsername()));
+            userList.getList().stream().filter(new Predicate<User>() {
+                @Override
+                public boolean test(User user) {
+                    return !(user.getUsername() == u.getUsername());
+                }
+            }).forEach(e -> {
+                if(e instanceof ServerUser) {
+                    ServerUser su = (ServerUser) e;
+                    try {
+                        su.getOos().writeObject(new UserRemovalNotification(users));
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+             });
 
             this.userList.removeUser(u);
         }

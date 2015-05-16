@@ -4,6 +4,7 @@ import Clinet.Service.WhoOpensTheConnection;
 import Model.ChatList;
 import Model.Request.GetIpCarrier;
 import Model.Request.UserListCarrier;
+import Model.Request.UserRemovalNotification;
 import Model.User;
 import Model.UserList;
 import javafx.concurrent.Task;
@@ -113,5 +114,11 @@ public class Client extends Task<Void> {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setHeaderText("The IP of "+gipca.username+": "+gipca.ipAddress);
         a.show();
+    }
+
+    public void removeUsersFromUserList(UserRemovalNotification userRemovalNotification) {
+        userRemovalNotification.usersToRemove.stream().forEach(e -> {
+            userList.removeUser(e);
+        });
     }
 }
