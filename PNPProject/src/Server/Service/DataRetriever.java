@@ -28,10 +28,11 @@ public class DataRetriever extends Service<ChatUnit> {
         this.setExecutor(this.service);
 
         this.setOnSucceeded(e -> {
-            ChatUnit unit = DataRetriever.this.getValue();
-            if(unit != null) {
-                System.out.print("Data added:\n");
-                dataInput.add(unit);
+            Object unit = DataRetriever.this.getValue();
+            if(unit instanceof ChatUnit) {
+                System.out.print("Adding DATA\n");
+                ChatUnit u1 = (ChatUnit) unit;
+                dataInput.add(u1);
             }
             DataRetriever.this.restart();
         });
