@@ -21,7 +21,6 @@ public class UserListRequest implements Serializable, DataOverNetwork {
     }
 
     public void setUsername(String username) {
-        if(username != null) return;
         this.username = username;
     }
 }

@@ -1,6 +1,7 @@
 package Server.Service;
 
 import Model.*;
+import Model.Request.UserListRequest;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
@@ -33,6 +34,9 @@ public class DataRetriever extends Service<DataOverNetwork> {
                 System.out.print("Adding DATA\n");
                 ChatUnit u1 = (ChatUnit) unit;
                 this.dataInput.add(u1);
+            }else if(unit instanceof UserListRequest) {
+                UserListRequest ulr = (UserListRequest) unit;
+                System.out.println("Recieved UserListRequest from" +ulr.getUsername());
             }
             DataRetriever.this.restart();
         });
@@ -58,6 +62,7 @@ public class DataRetriever extends Service<DataOverNetwork> {
     @Override
     protected Task<DataOverNetwork> createTask() {
         final ObjectInputStream ios = this.ios;
+        final User u = this.u;
         return new Task<DataOverNetwork>(){
             @Override
             protected DataOverNetwork call() throws Exception {
@@ -67,6 +72,10 @@ public class DataRetriever extends Service<DataOverNetwork> {
                         String s = (String) o;
                         ChatUnit chatUnit = new ChatUnit(u.getUsername(), s);
                         return chatUnit;
+                    } else if (o instanceof UserListRequest) {
+                        UserListRequest ulr = (UserListRequest) o;
+                        ulr.setUsername(u.getUsername());
+                        return ulr;
                     }
 
                 }

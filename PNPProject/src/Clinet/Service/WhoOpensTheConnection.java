@@ -2,6 +2,7 @@ package Clinet.Service;
 
 import Clinet.Client;
 import Model.ChatList;
+import Model.Request.UserListRequest;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
@@ -101,6 +102,8 @@ public class WhoOpensTheConnection extends Service<DataRetriever> {
                             throw new Exception("Connection failed");
                         }
                     }
+
+                oos.writeObject(new UserListRequest());
 
                 DataRetriever d = new DataRetriever(s, chatList, ios, oos);
 
