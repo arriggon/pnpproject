@@ -1,10 +1,7 @@
 package Server.Service;
 
 import Model.*;
-import Model.Request.GetIpCarrier;
-import Model.Request.GetIpRequest;
-import Model.Request.UserListCarrier;
-import Model.Request.UserListRequest;
+import Model.Request.*;
 import Server.Server;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -65,7 +62,13 @@ public class DataRetriever extends Service<DataOverNetwork> {
                         e1.printStackTrace();
                     }
                 }
+            } else if(unit instanceof DisconnectNotification) {
+
+                this.server.userDisconnected(this.u);
+
             }
+
+
             DataRetriever.this.restart();
         });
 
@@ -106,6 +109,8 @@ public class DataRetriever extends Service<DataOverNetwork> {
                         return ulr;
                     } else if(o instanceof GetIpRequest) {
                         return (GetIpRequest) o;
+                    } else if(o instanceof DisconnectNotification) {
+                        return (DisconnectNotification) o;
                     }
 
                 }

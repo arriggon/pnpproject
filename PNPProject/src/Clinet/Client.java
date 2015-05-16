@@ -66,7 +66,9 @@ public class Client extends Task<Void> {
         whoOpensTheConnection.send(string);
     }
 
-
+    public void requestDisconnect() {
+        whoOpensTheConnection.requestDisconnect();
+    }
 
 
 

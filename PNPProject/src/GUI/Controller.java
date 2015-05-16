@@ -215,6 +215,7 @@ public class Controller {
 
     public void closeAll() {
         if(client != null) {
+            client.requestDisconnect();
             client.cancel();
         }
 

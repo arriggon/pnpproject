@@ -5,8 +5,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
+import javax.jws.soap.SOAPBinding;
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
@@ -31,6 +33,17 @@ public class UserList {
 
     public void removeUser() {
         usersObseved.remove(usersObseved.size()-1);
+    }
+
+    public void removeUser(User u) {
+        Iterator<User> i = usersObseved.iterator();
+        while (i.hasNext()) {
+            User temp = i.next();
+            if(temp.getUsername() == u.getUsername()) {
+                i.remove();
+                return;
+            }
+        }
     }
 
 

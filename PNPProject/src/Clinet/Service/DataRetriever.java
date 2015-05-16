@@ -4,6 +4,7 @@ import Clinet.Client;
 import Model.ChatList;
 import Model.ChatUnit;
 import Model.DataOverNetwork;
+import Model.Request.DisconnectNotification;
 import Model.Request.GetIpCarrier;
 import Model.Request.GetIpRequest;
 import Model.Request.UserListCarrier;
@@ -85,6 +86,13 @@ public class DataRetriever extends Service<DataOverNetwork> {
         });
 
         try {
+            System.out.println("Disconnecting");
+            oos.writeObject(new DisconnectNotification());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
             socket.close();
             ios.close();
             oos.close();
@@ -92,6 +100,15 @@ public class DataRetriever extends Service<DataOverNetwork> {
             e.printStackTrace();
         }
 
+    }
+
+    public void requestDisconnect() {
+        try {
+            System.out.println("Disconnecting");
+            oos.writeObject(new DisconnectNotification());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

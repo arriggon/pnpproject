@@ -91,4 +91,19 @@ public class Server extends Task<Void>{
         }
         return users;
     }
+
+    public void userDisconnected(User u) {
+        if(u instanceof ServerUser) {
+            ((ServerUser) u).getDataRetriever().stop();
+            try {
+                ((ServerUser) u).getOos().close();
+                ((ServerUser) u).getS().close();
+                ((ServerUser) u).getIos().close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            this.userList.removeUser(u);
+        }
+    }
 }

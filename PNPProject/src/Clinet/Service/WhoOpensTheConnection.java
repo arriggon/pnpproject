@@ -76,6 +76,12 @@ public class WhoOpensTheConnection extends Service<DataRetriever> {
         }
     }
 
+    public void requestDisconnect() {
+        if(dataRetriever != null) {
+            dataRetriever.requestDisconnect();
+        }
+    }
+
 
 
 
