@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.CharEdit.EditControlls">
+   <center>
+      <AnchorPane prefHeight="367.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="14.0" layoutY="48.0" prefHeight="17.0" prefWidth="79.0" text="Name" />
+            <TextField fx:id="name_TF" layoutX="100.0" layoutY="44.0" prefHeight="25.0" prefWidth="166.0" />
+            <Label layoutX="14.0" layoutY="87.0" prefHeight="17.0" prefWidth="74.0" text="Age" />
+            <TextField fx:id="age_tf" layoutX="100.0" layoutY="83.0" prefHeight="25.0" prefWidth="167.0" />
+            <Label layoutX="14.0" layoutY="125.0" prefHeight="17.0" prefWidth="66.0" text="Race" />
+            <TextField fx:id="race_tf" layoutX="101.0" layoutY="121.0" prefHeight="25.0" prefWidth="167.0" />
+            <Label layoutX="14.0" layoutY="163.0" prefHeight="17.0" prefWidth="69.0" text="Class" />
+            <TextField fx:id="class_tf" layoutX="100.0" layoutY="159.0" prefHeight="25.0" prefWidth="168.0" />
+            <Label layoutX="14.0" layoutY="204.0" prefHeight="17.0" prefWidth="68.0" text="Biograpy" />
+            <TextArea fx:id="biography_ta" layoutX="101.0" layoutY="200.0" prefHeight="147.0" prefWidth="475.0" />
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#1a5e9e00" height="162.0" layoutX="274.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="302.0" />
+            <Label layoutX="286.0" layoutY="36.0" prefHeight="17.0" prefWidth="37.0" text="Stats" />
+            <Label layoutX="286.0" layoutY="57.0" prefHeight="17.0" prefWidth="34.0" text="AGI" />
+            <TextField fx:id="agi_tf" layoutX="323.0" layoutY="53.0" prefHeight="25.0" prefWidth="89.0" />
+            <TextField fx:id="dex_tf" layoutX="323.0" layoutY="83.0" prefHeight="25.0" prefWidth="89.0" />
+            <Label layoutX="286.0" layoutY="87.0" prefHeight="17.0" prefWidth="30.0" text="DEX" />
+            <Label layoutX="286.0" layoutY="119.0" prefHeight="17.0" prefWidth="34.0" text="WIS" />
+            <TextField fx:id="wis_tf" layoutX="323.0" layoutY="115.0" prefHeight="25.0" prefWidth="89.0" />
+            <TextField fx:id="intel_tf" layoutX="323.0" layoutY="145.0" prefHeight="25.0" prefWidth="89.0" />
+            <Label layoutX="286.0" layoutY="149.0" prefHeight="17.0" prefWidth="30.0" text="INT" />
+            <Label layoutX="425.0" layoutY="57.0" prefHeight="17.0" prefWidth="34.0" text="ATK" />
+            <TextField fx:id="atk_tf" layoutX="462.0" layoutY="53.0" prefHeight="25.0" prefWidth="89.0" />
+            <TextField fx:id="def_tf" layoutX="462.0" layoutY="83.0" prefHeight="25.0" prefWidth="89.0" />
+            <Label layoutX="425.0" layoutY="87.0" prefHeight="17.0" prefWidth="30.0" text="DEF" />
+            <Label layoutX="425.0" layoutY="119.0" prefHeight="17.0" prefWidth="34.0" text="STA" />
+            <TextField fx:id="sta_tf" layoutX="462.0" layoutY="115.0" prefHeight="25.0" prefWidth="89.0" />
+            <TextField fx:id="hp_tf" layoutX="462.0" layoutY="145.0" prefHeight="25.0" prefWidth="89.0" />
+            <Label layoutX="425.0" layoutY="149.0" prefHeight="17.0" prefWidth="30.0" text="HP" />
+         </children>
+      </AnchorPane>
+   </center>
+   <bottom>
+      <FlowPane prefHeight="28.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="41.0" prefWidth="73.0" />
+            <Button fx:id="cancel_bt" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Cancel" />
+            <AnchorPane prefHeight="41.0" prefWidth="228.0" />
+            <Button fx:id="accept_bt" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Accept" />
+         </children>
+      </FlowPane>
+   </bottom>
+</BorderPane>
