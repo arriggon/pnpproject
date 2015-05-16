@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Character.*;
+import Model.Character.Character;
 import Server.Server;
 import Server.Service.DataRetriever;
 
@@ -16,6 +18,7 @@ public class ServerUser extends User {
     private ObjectInputStream ios;
     private ObjectOutputStream oos;
     private DataRetriever dataRetriever;
+    private Model.Character.Character character;
 
 
     public ServerUser(String str) {
@@ -24,6 +27,7 @@ public class ServerUser extends User {
         ios = null;
         oos = null;
         dataRetriever = null;
+        character = null;
     }
 
     public ServerUser(String str, Socket s, ObjectInputStream ios, ObjectOutputStream oos) {
@@ -32,6 +36,7 @@ public class ServerUser extends User {
         this.ios = ios;
         this.oos = oos;
         this.dataRetriever = null;
+        character = null;
     }
 
     public Socket getS() {
@@ -64,5 +69,16 @@ public class ServerUser extends User {
 
     public void setDataRetriever(DataRetriever dataRetriever) {
         this.dataRetriever = dataRetriever;
+    }
+
+
+    public void setCharacter(Character c){
+        if(c != null) {
+            this.character = c;
+        }
+    }
+
+    public Character getCharacter() {
+        return character;
     }
 }
