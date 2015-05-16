@@ -1,9 +1,11 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
  * Created by RAIDER on 08.05.2015.
  */
-public class User {
+public class User implements Serializable{
     private String username;
 
     public User(String str) {

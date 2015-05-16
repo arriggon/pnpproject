@@ -18,7 +18,7 @@ public class UserList {
     private ObservableList<User> usersObseved;
 
     public UserList() {
-        usersObseved = FXCollections.observableList(new ArrayList<User>());
+        usersObseved = FXCollections.synchronizedObservableList(FXCollections.observableList(new ArrayList<User>()));
     }
 
     public ObservableList<User> getList() {

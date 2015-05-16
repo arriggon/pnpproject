@@ -2,11 +2,14 @@ package Clinet;
 
 import Clinet.Service.WhoOpensTheConnection;
 import Model.ChatList;
+import Model.Request.UserListCarrier;
+import Model.User;
 import Model.UserList;
 import javafx.concurrent.Task;
 import javafx.scene.control.Alert;
 import org.omg.CORBA.portable.ValueOutputStream;
 
+import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -86,5 +89,15 @@ public class Client extends Task<Void> {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setHeaderText("Could not Connect: Username already exist");
         a.show();
+    }
+
+    public void addAllUsers(UserListCarrier uca) {
+        System.out.println("Writting users to GUI");
+        Iterator<User> i = uca.listToAddOn.iterator();
+        while (i.hasNext()) {
+            User u = i.next();
+            System.out.println(u.toString());
+            userList.addUser(u);
+        }
     }
 }

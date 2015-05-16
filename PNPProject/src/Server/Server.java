@@ -7,10 +7,15 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Created by RAIDER on 08.05.2015.
@@ -43,7 +48,7 @@ public class Server extends Task<Void>{
 
         dataInput = new DataInput();
         receptionist = new Receptionist(this.userList, this.chatList,this.dataInput
-                , service);
+                , service, this);
         dataManager = new DataManager(dataInput, this.service, this.chatList, this.userList);
         recOnceStarted = false;
         dataManagerStatedOnce = false;
@@ -76,5 +81,14 @@ public class Server extends Task<Void>{
     public void send(String str) {
         ChatUnit u = new ChatUnit("Server", str);
         dataManager.send(u);
+    }
+
+    public List<User> getCompleteUserList() {
+        ArrayList<User> users = new ArrayList<>();
+        Iterator<User> i = userList.getList().iterator();
+        while (i.hasNext()) {
+            users.add(new User(i.next().getUsername()));
+        }
+        return users;
     }
 }

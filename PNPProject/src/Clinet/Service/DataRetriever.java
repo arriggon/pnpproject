@@ -1,8 +1,11 @@
 package Clinet.Service;
 
+import Clinet.Client;
 import Model.ChatList;
 import Model.ChatUnit;
 import Model.DataOverNetwork;
+import Model.Request.UserListCarrier;
+import Model.UserList;
 import Server.Server;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -24,12 +27,14 @@ public class DataRetriever extends Service<DataOverNetwork> {
     private ChatList list;
     private ObjectInputStream ios;
     private ObjectOutputStream oos;
+    private Client c;
 
-    public DataRetriever(Socket socket, ChatList chatList, ObjectInputStream ios, ObjectOutputStream oos) {
+    public DataRetriever(Socket socket, ChatList chatList, ObjectInputStream ios, ObjectOutputStream oos, Client c) {
         this.socket = socket;
         list = chatList;
         this.ios = ios;
         this.oos = oos;
+        this.c = c;
         try {
             socket.setSoTimeout(100);
         } catch (SocketException e) {
@@ -40,6 +45,10 @@ public class DataRetriever extends Service<DataOverNetwork> {
             if(ChatUnit.class.isInstance(o)) {
                 ChatUnit u = (ChatUnit) o;
                 list.addChatUnit(u);
+            } else if(o instanceof UserListCarrier) {
+                UserListCarrier uca = (UserListCarrier) o;
+                c.addAllUsers(uca);
+
             }
             DataRetriever.this.restart();
         });
@@ -91,6 +100,10 @@ public class DataRetriever extends Service<DataOverNetwork> {
                 Object o = ios.readObject();
                 if(ChatUnit.class.isInstance(o)) {
                     return (ChatUnit)o;
+                }
+
+                if(o instanceof UserListCarrier) {
+                    return (UserListCarrier) o;
                 }
 
                 return null;

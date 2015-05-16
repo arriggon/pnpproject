@@ -35,10 +35,13 @@ public class WhoOpensTheConnection extends Service<DataRetriever> {
 
         this.setOnSucceeded(e -> {
             try {
+                System.out.println("Activating dataRetriever");
                 DataRetriever dataRetriever1 = WhoOpensTheConnection.this.getValue();
                 if(dataRetriever1 != null ) {
+                    System.out.println("Dataretriever nor null");
                     this.dataRetriever = dataRetriever1;
                     dataRetriever.start();
+
                 } else {
                     this.c.cancel();
                     this.c.showConnectionError();
@@ -73,6 +76,8 @@ public class WhoOpensTheConnection extends Service<DataRetriever> {
     protected Task<DataRetriever> createTask() {
         final String serverIp = this.serverIp;
         final int port = this.port;
+        final Client c = this.c;
+        final ChatList chatList = this.chatList;
         return new Task<DataRetriever>() {
             @Override
             protected DataRetriever call() throws Exception {
@@ -102,10 +107,11 @@ public class WhoOpensTheConnection extends Service<DataRetriever> {
                             throw new Exception("Connection failed");
                         }
                     }
-
+                System.out.println("Sending Request");
                 oos.writeObject(new UserListRequest());
+                System.out.println("Sent reques");
 
-                DataRetriever d = new DataRetriever(s, chatList, ios, oos);
+                DataRetriever d = new DataRetriever(s, chatList, ios, oos, c);
 
 
 

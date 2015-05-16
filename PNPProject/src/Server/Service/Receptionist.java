@@ -1,6 +1,7 @@
 package Server.Service;
 
 import Model.*;
+import Server.Server;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
@@ -21,11 +22,13 @@ public class Receptionist extends Service<User> {
     private UserList userList;
     private ExecutorService service;
     private DataInput dataInput;
+    private Server server;
 
-    public Receptionist(UserList u,ChatList chatList, DataInput dataInput, ExecutorService service) throws IOException {
+    public Receptionist(UserList u,ChatList chatList, DataInput dataInput, ExecutorService service, Server server) throws IOException {
         this.userList = u;
         this.service = service;
         this.dataInput = dataInput;
+        this.server = server;
         this.setExecutor(
                 service
         );
@@ -49,7 +52,7 @@ public class Receptionist extends Service<User> {
                             } catch (SocketException e1) {
                                 e1.printStackTrace();
                             }
-                            DataRetriever dataRetriever = new DataRetriever(serverUser.getIos(), serverUser, Receptionist.this.dataInput, Receptionist.this.service);
+                            DataRetriever dataRetriever = new DataRetriever(serverUser.getIos(), serverUser, Receptionist.this.dataInput, Receptionist.this.service, Receptionist.this.server);
                             serverUser.setDataRetriever(dataRetriever);
                             dataRetriever.start();
                         }
