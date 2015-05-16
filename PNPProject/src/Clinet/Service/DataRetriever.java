@@ -4,6 +4,8 @@ import Clinet.Client;
 import Model.ChatList;
 import Model.ChatUnit;
 import Model.DataOverNetwork;
+import Model.Request.GetIpCarrier;
+import Model.Request.GetIpRequest;
 import Model.Request.UserListCarrier;
 import Model.UserList;
 import Server.Server;
@@ -49,6 +51,9 @@ public class DataRetriever extends Service<DataOverNetwork> {
                 UserListCarrier uca = (UserListCarrier) o;
                 c.addAllUsers(uca);
 
+            } else if(o instanceof GetIpCarrier) {
+                GetIpCarrier gipca = (GetIpCarrier) o;
+                this.c.showIpRequested(gipca);
             }
             DataRetriever.this.restart();
         });
@@ -106,8 +111,21 @@ public class DataRetriever extends Service<DataOverNetwork> {
                     return (UserListCarrier) o;
                 }
 
+                if(o instanceof GetIpCarrier) {
+                    return (GetIpCarrier)o;
+                }
+
                 return null;
             }
         };
+    }
+
+    public void requestIpFromServer() {
+        System.out.print("Request final");
+        try {
+            oos.writeObject(new GetIpRequest());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

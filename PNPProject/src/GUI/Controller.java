@@ -26,6 +26,7 @@ import javafx.util.Callback;
 
 import javax.jws.soap.SOAPBinding;
 import javax.script.Bindings;
+import javax.swing.plaf.synth.SynthTextAreaUI;
 
 
 public class Controller {
@@ -95,6 +96,11 @@ public class Controller {
                                a.close();
                            });
                            a.show();
+                       } else if(u instanceof User) {
+                           System.out.print("Request IP 1\n");
+                           if(client != null) {
+                               client.requestIpFromServer();
+                           }
                        }
                    }
                });

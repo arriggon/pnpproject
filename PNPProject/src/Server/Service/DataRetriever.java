@@ -1,6 +1,8 @@
 package Server.Service;
 
 import Model.*;
+import Model.Request.GetIpCarrier;
+import Model.Request.GetIpRequest;
 import Model.Request.UserListCarrier;
 import Model.Request.UserListRequest;
 import Server.Server;
@@ -54,6 +56,15 @@ public class DataRetriever extends Service<DataOverNetwork> {
                         e1.printStackTrace();
                     }
                 }
+            } else if(unit instanceof GetIpRequest) {
+                if(u instanceof ServerUser) {
+                    GetIpCarrier gipc = new GetIpCarrier(((ServerUser) u).getS().getInetAddress().getHostAddress(), u.getUsername());
+                    try {
+                        ((ServerUser) u).getOos().writeObject(gipc);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
             }
             DataRetriever.this.restart();
         });
@@ -93,6 +104,8 @@ public class DataRetriever extends Service<DataOverNetwork> {
                         UserListRequest ulr = (UserListRequest) o;
                         ulr.setUsername(u.getUsername());
                         return ulr;
+                    } else if(o instanceof GetIpRequest) {
+                        return (GetIpRequest) o;
                     }
 
                 }

@@ -69,6 +69,13 @@ public class WhoOpensTheConnection extends Service<DataRetriever> {
 
     }
 
+    public void requestIpFromServer() {
+        System.out.print("Request IP 3");
+        if(dataRetriever != null) {
+            dataRetriever.requestIpFromServer();
+        }
+    }
+
 
 
 
