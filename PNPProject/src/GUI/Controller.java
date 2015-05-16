@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.*;
 
 import Clinet.Client;
+import GUI.CharEdit.CharEdit;
 import Model.*;
 import Server.Server;
 import javafx.application.Platform;
@@ -151,6 +152,8 @@ public class Controller {
         host_mi.setOnAction(e -> {
             server.start();
             host_mi.setDisable(true);
+            join_mi.setDisable(true);
+            stop_mi.setDisable(false);
             button_B.setOnAction(e1 -> {
                 server.send(send_text_TF.getText());
             });
@@ -169,7 +172,7 @@ public class Controller {
         });
 
         chat_list.getStylesheets().add(getClass().getResource("userList.css").toExternalForm());
-
+        stop_mi.setDisable(true);
 
 
 
@@ -205,6 +208,9 @@ public class Controller {
                     int port = Integer.parseInt(s.get());
                     client = new Client(chatList, userList, username, severIp, port);
                     client.start();
+                    join_mi.setDisable(true);
+                    host_mi.setDisable(true);
+                    stop_mi.setDisable(false);
                     button_B.setOnAction( e -> {
                         client.send(send_text_TF.getText());
                     });

@@ -12,7 +12,7 @@
               <items>
                 <MenuItem fx:id="host_mi" mnemonicParsing="false" text="Host" />
                   <MenuItem fx:id="join_mi" mnemonicParsing="false" text="Join" />
-                  <MenuItem fx:id="stop_mi" mnemonicParsing="false" text="Disconnect" />
+                  <MenuItem fx:id="stop_mi" mnemonicParsing="false" text="Open Character Editor" />
               </items>
             </Menu>
          </menus>
