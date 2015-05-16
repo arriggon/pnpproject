@@ -11,6 +11,8 @@ import java.util.*;
 import Clinet.Client;
 import GUI.CharEdit.CharEdit;
 import Model.*;
+import Model.Character.*;
+import Model.Character.Character;
 import Server.Server;
 import javafx.application.Platform;
 import javafx.beans.binding.Binding;
@@ -173,6 +175,10 @@ public class Controller {
 
         chat_list.getStylesheets().add(getClass().getResource("userList.css").toExternalForm());
         stop_mi.setDisable(true);
+
+        stop_mi.setOnAction(e -> {
+            CharEdit charEdit = new CharEdit(this);
+        });
 
 
 

@@ -47,7 +47,7 @@ public class Character implements Serializable, DataOverNetwork{
     }
 
     public void setName(String name) throws CharacterCreatorException {
-        if(name.length() > 3) {
+        if(name.isEmpty()) {
             throw new CharacterCreatorException("name: too short");
         }
         this.name = name;
@@ -58,7 +58,7 @@ public class Character implements Serializable, DataOverNetwork{
     }
 
     public void setAge(int age) throws CharacterCreatorException {
-        if(age > 0) {
+        if(age < 0) {
             throw new CharacterCreatorException("age: must be greater than 0: not"+age);
         }
         this.age = age;
@@ -184,5 +184,24 @@ public class Character implements Serializable, DataOverNetwork{
             throw new CharacterCreatorException("DEX: must not be smaller than 0 - not "+dex);
         }
         this.dex = dex;
+    }
+
+    @Override
+    public String toString() {
+        return "Character{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", race='" + race + '\'' +
+                ", _class='" + _class + '\'' +
+                ", biography='" + biography + '\'' +
+                ", agi=" + agi +
+                ", wis=" + wis +
+                ", hp=" + hp +
+                ", intelect=" + intelect +
+                ", atk=" + atk +
+                ", def=" + def +
+                ", sta=" + sta +
+                ", dex=" + dex +
+                '}';
     }
 }
