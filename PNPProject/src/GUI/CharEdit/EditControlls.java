@@ -1,5 +1,6 @@
 package GUI.CharEdit;
 
+import GUI.Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -55,8 +56,6 @@ public class EditControlls implements Initializable{
 
     @FXML
     private Button accept_bt;
-
-    private Character characterBuild;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

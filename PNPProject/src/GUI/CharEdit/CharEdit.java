@@ -3,6 +3,7 @@ package GUI.CharEdit;
 import Model.ChatList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -14,6 +15,7 @@ import java.io.IOException;
 public class CharEdit {
 
     private Stage charWindow;
+    private EditControlls editControlls;
 
     public CharEdit(){
         this.charWindow = new Stage(StageStyle.UTILITY);
@@ -22,8 +24,14 @@ public class CharEdit {
             Parent root = loader.load();
             Object controlls = loader.getController();
             if(controlls instanceof EditControlls) {
-                EditControlls editControlls = (EditControlls)controlls;
+                 editControlls = (EditControlls)controlls;
             }
+
+            Scene sc = new Scene(root);
+            this.charWindow.setResizable(false);
+            this.charWindow.setTitle("Character Editor");
+            this.charWindow.setScene(sc);
+            this.charWindow.show();
 
 
 
