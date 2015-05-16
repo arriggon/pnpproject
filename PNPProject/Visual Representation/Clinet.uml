@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Clinet</OriginalElement>
+  <nodes>
+    <node x="620.5" y="172.5">Clinet.Service.WhoOpensTheConnection</node>
+    <node x="637.5" y="583.5">Clinet.Service.DataRetriever</node>
+    <node x="-17.0" y="106.5">Clinet.Client</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Clinet.Service.DataRetriever" target="Clinet.Client">
+      <point x="-162.5" y="0.0" />
+      <point x="240.0" y="720.0" />
+      <point x="0.0" y="213.5" />
+    </edge>
+    <edge source="Clinet.Client" target="Clinet.Service.WhoOpensTheConnection">
+      <point x="0.0" y="-213.5" />
+      <point x="240.0" y="0.0" />
+      <point x="800.0" y="0.0" />
+      <point x="0.0" y="-147.5" />
+    </edge>
+    <edge source="Clinet.Service.WhoOpensTheConnection" target="Clinet.Client">
+      <point x="-179.5" y="0.0" />
+      <point x="257.0" y="0.0" />
+    </edge>
+    <edge source="Clinet.Service.WhoOpensTheConnection" target="Clinet.Service.DataRetriever">
+      <point x="0.0" y="147.5" />
+      <point x="0.0" y="-136.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7000000000000001" x="652.9999999999999" y="490.57142857142856" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
