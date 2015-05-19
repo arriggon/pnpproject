@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import javax.print.DocFlavor;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -132,6 +133,33 @@ public class EditControlls implements Initializable{
 
         class_tf.setText(c.get_class());
         class_tf.setEditable(false);
+
+        biography_ta.setText(c.getBiography());
+        biography_ta.setEditable(false);
+
+        agi_tf.setText(String.valueOf(c.getAgi()));
+        agi_tf.setEditable(false);
+
+        dex_tf.setText(String.valueOf(c.getDex()));
+        dex_tf.setEditable(false);
+
+        wis_tf.setText(String.valueOf(c.getWis()));
+        wis_tf.setEditable(false);
+
+        intel_tf.setText(String.valueOf(c.getIntelect()));
+        intel_tf.setEditable(false);
+
+        atk_tf.setText(String.valueOf(c.getAtk()));
+        atk_tf.setEditable(false);
+
+        def_tf.setText(String.valueOf(c.getDef()));
+        def_tf.setEditable(false);
+
+        sta_tf.setText(String.valueOf(c.getSta()));
+        sta_tf.setEditable(false);
+
+        hp_tf.setText(String.valueOf(c.getHp()));
+        hp_tf.setEditable(false);
     }
 
 }
