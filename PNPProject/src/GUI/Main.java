@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -30,6 +31,7 @@ public class Main extends Application {
         final Controller c = co;
         primaryStage.setTitle("PNP Project");
         primaryStage.setScene(new Scene(root));
+        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("pencil-icon.png")));
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {

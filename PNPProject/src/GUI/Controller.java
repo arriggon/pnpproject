@@ -25,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.util.Callback;
 
 import javax.jws.soap.SOAPBinding;
@@ -199,6 +200,13 @@ public class Controller {
             stop_mi.setDisable(true);
             button_B.setOnAction(e1 -> {
                 server.send(send_text_TF.getText());
+                send_text_TF.setText("");
+            });
+            send_text_TF.setOnKeyPressed(f -> {
+                if (f.getCode().equals(KeyCode.ENTER)) {
+                    server.send(send_text_TF.getText());
+                    send_text_TF.setText("");
+                }
             });
         });
 
