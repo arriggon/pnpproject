@@ -120,4 +120,18 @@ public class EditControlls implements Initializable{
         chatEdit = ce;
     }
 
+    public void fillCharEdit(Character c) {
+        name_TF.setText(c.getName());
+        name_TF.setEditable(false);
+
+        age_tf.setText(String.valueOf(c.getAge()));
+        age_tf.setEditable(false);
+
+        race_tf.setText(c.getRace());
+        race_tf.setEditable(false);
+
+        class_tf.setText(c.get_class());
+        class_tf.setEditable(false);
+    }
+
 }

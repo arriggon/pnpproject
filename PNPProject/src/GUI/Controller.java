@@ -108,6 +108,18 @@ public class Controller {
                    }
                });
 
+               MenuItem get_char_mi = new MenuItem();
+               get_char_mi.setText("Get Character");
+               get_char_mi.setOnAction(e -> {
+                   User u = userListCell.getItem();
+                   if(u instanceof ServerUser) {
+                       ServerUser su = (ServerUser) u;
+                       Character c = su.getCharacter();
+                       CharEdit ce = new CharEdit(Controller.this);
+                       ce.getEditControlls().fillCharEdit(c);
+                   }
+
+               });
 
                contextMenu.getItems().addAll(get_ip_item);
 
