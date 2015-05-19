@@ -1,6 +1,8 @@
 package Server;
 
 import Model.*;
+import Model.Character.*;
+import Model.Character.Character;
 import Model.Request.UserRemovalNotification;
 import Server.Service.DataManager;
 import Server.Service.Receptionist;
@@ -11,12 +13,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.function.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -125,5 +128,19 @@ public class Server extends Task<Void>{
 
             this.userList.removeUser(u);
         }
+    }
+
+    public Model.Character.Character getCharacterFromUser(String username) {
+        Iterator<User> i = userList.getList().iterator();
+        while (i.hasNext()) {
+            Object o = i.next();
+            if(o instanceof ServerUser) {
+                ServerUser su = (ServerUser)o;
+                if(su.getUsername().equals(username)) {
+                    return su.getCharacter();
+                }
+            }
+        }
+        return null;
     }
 }

@@ -132,4 +132,10 @@ public class WhoOpensTheConnection extends Service<DataRetriever> {
             }
         };
     }
+
+    public void requestCharacter(String username) {
+        if(dataRetriever != null) {
+            dataRetriever.requestCharacter(username);
+        }
+    }
 }

@@ -21,8 +21,7 @@ public class CharEdit {
     private EditControlls editControlls;
     private Controller c;
 
-    public CharEdit(Controller c){
-        this.c = c;
+    public CharEdit(){
         this.charWindow = new Stage(StageStyle.UTILITY);
         FXMLLoader  loader = new FXMLLoader(getClass().getResource("charEdit.fxml"));
         try {

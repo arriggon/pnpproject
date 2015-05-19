@@ -1,6 +1,7 @@
 package Clinet.Service;
 
 import Clinet.Client;
+import Model.Character.*;
 import Model.ChatList;
 import Model.ChatUnit;
 import Model.DataOverNetwork;
@@ -55,6 +56,9 @@ public class DataRetriever extends Service<DataOverNetwork> {
             } else if(o instanceof UserRemovalNotification) {
                 UserRemovalNotification urnf = (UserRemovalNotification) o;
                 this.c.removeUsersFromUserList(urnf);
+            } else if(o instanceof CharacterDisplayCarrier) {
+                CharacterDisplayCarrier cid = (CharacterDisplayCarrier) o;
+                this.c.showCharacter(cid.character);
             }
             DataRetriever.this.restart();
         });
@@ -135,6 +139,10 @@ public class DataRetriever extends Service<DataOverNetwork> {
                 if(o instanceof UserRemovalNotification)
                     return  (UserRemovalNotification)o;
 
+                if(o instanceof CharacterDisplayCarrier) {
+                    return (CharacterDisplayCarrier)o;
+                }
+
                 return null;
             }
         };
@@ -144,6 +152,14 @@ public class DataRetriever extends Service<DataOverNetwork> {
         System.out.print("Request final");
         try {
             oos.writeObject(new GetIpRequest());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void requestCharacter(String username) {
+        try {
+            oos.writeObject(new CharacterRequest(username));
         } catch (IOException e) {
             e.printStackTrace();
         }

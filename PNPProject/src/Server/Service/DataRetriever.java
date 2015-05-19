@@ -1,6 +1,7 @@
 package Server.Service;
 
 import Model.*;
+import Model.Character.*;
 import Model.Request.*;
 import Server.Server;
 import javafx.concurrent.Service;
@@ -62,7 +63,20 @@ public class DataRetriever extends Service<DataOverNetwork> {
                         e1.printStackTrace();
                     }
                 }
-            } else if(unit instanceof DisconnectNotification) {
+            } else if (unit instanceof CharacterRequest) {
+
+                Model.Character.Character c = this.server.getCharacterFromUser(((CharacterRequest)unit).username);
+                CharacterDisplayCarrier cid = new CharacterDisplayCarrier(((CharacterRequest)unit).username, c);
+                if(u instanceof ServerUser) {
+                    try {
+                        ((ServerUser) u).getOos().writeObject(cid);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+
+
+            }else if(unit instanceof DisconnectNotification) {
 
                 this.server.userDisconnected(this.u);
 
@@ -111,6 +125,8 @@ public class DataRetriever extends Service<DataOverNetwork> {
                         return (GetIpRequest) o;
                     } else if(o instanceof DisconnectNotification) {
                         return (DisconnectNotification) o;
+                    } else if (o instanceof CharacterRequest) {
+                        return (CharacterRequest)o;
                     }
 
                 }

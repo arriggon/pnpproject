@@ -115,13 +115,18 @@ public class Controller {
                    if(u instanceof ServerUser) {
                        ServerUser su = (ServerUser) u;
                        Character c = su.getCharacter();
-                       CharEdit ce = new CharEdit(Controller.this);
-                       ce.getEditControlls().fillCharEdit(c);
+                       CharEdit ce = new CharEdit();
+                       if(c != null) {
+                           ce.getEditControlls().fillCharEdit(c);
+                       }
+
+                   }else if(u instanceof User) {
+                       client.requestCharacter(u.getUsername());
                    }
 
                });
 
-               contextMenu.getItems().addAll(get_ip_item);
+               contextMenu.getItems().addAll(get_ip_item, get_char_mi);
 
                userListCell.emptyProperty().addListener(new ChangeListener<Boolean>() {
                    @Override
@@ -167,7 +172,7 @@ public class Controller {
             server.start();
             host_mi.setDisable(true);
             join_mi.setDisable(true);
-            stop_mi.setDisable(false);
+            stop_mi.setDisable(true);
             button_B.setOnAction(e1 -> {
                 server.send(send_text_TF.getText());
             });
@@ -189,7 +194,7 @@ public class Controller {
         stop_mi.setDisable(true);
 
         stop_mi.setOnAction(e -> {
-            CharEdit charEdit = new CharEdit(this);
+            CharEdit charEdit = new CharEdit();
         });
 
 

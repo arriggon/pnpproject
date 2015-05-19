@@ -1,6 +1,8 @@
 package Clinet;
 
 import Clinet.Service.WhoOpensTheConnection;
+import GUI.CharEdit.CharEdit;
+import Model.Character.*;
 import Model.ChatList;
 import Model.Request.GetIpCarrier;
 import Model.Request.UserListCarrier;
@@ -120,5 +122,20 @@ public class Client extends Task<Void> {
         userRemovalNotification.usersToRemove.stream().forEach(e -> {
             userList.removeUser(e);
         });
+    }
+
+    public void requestCharacter(String username) {
+        whoOpensTheConnection.requestCharacter(username);
+    }
+
+    public void showCharacter(Model.Character.Character c) {
+
+        CharEdit ce = new CharEdit();
+        if(c != null) {
+            ce.getEditControlls().fillCharEdit(c);
+        }
+
+
+
     }
 }
