@@ -126,7 +126,20 @@ public class Controller {
 
                });
 
-               contextMenu.getItems().addAll(get_ip_item, get_char_mi);
+               MenuItem edit_char_mi = new MenuItem();
+               edit_char_mi.setText("Edit Character");
+               edit_char_mi.setDisable(true);
+               edit_char_mi.setOnAction(e -> {
+                   User u = userListCell.getItem();
+                   if(u instanceof ServerUser) {
+                       ServerUser su = (ServerUser) u;
+                       CharEdit ce = new CharEdit();
+                       ce.setCharacterForServerUser(su);
+
+                   }
+               });
+
+               contextMenu.getItems().addAll(get_ip_item, get_char_mi, edit_char_mi);
 
                userListCell.emptyProperty().addListener(new ChangeListener<Boolean>() {
                    @Override
@@ -146,6 +159,17 @@ public class Controller {
                            userListCell.setText(newValue.toString());
                        }else {
                            userListCell.setText("");
+                       }
+                   }
+               });
+
+               userListCell.itemProperty().addListener(new ChangeListener<User>() {
+                   @Override
+                   public void changed(ObservableValue<? extends User> observable, User oldValue, User newValue) {
+                       if(newValue != null && newValue instanceof ServerUser) {
+                           edit_char_mi.setDisable(false);
+                       } else {
+                           edit_char_mi.setDisable(true);
                        }
                    }
                });

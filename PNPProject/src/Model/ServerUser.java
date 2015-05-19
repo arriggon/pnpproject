@@ -73,9 +73,10 @@ public class ServerUser extends User {
 
 
     public void setCharacter(Character c){
-        if(c != null) {
-            this.character = c;
-        }
+        this.character = c;
+        System.out.println("Character set");
+
+
     }
 
     public Character getCharacter() {

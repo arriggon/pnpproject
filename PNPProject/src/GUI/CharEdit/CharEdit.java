@@ -4,6 +4,7 @@ import GUI.Controller;
 import Model.Character.*;
 import Model.Character.Character;
 import Model.ChatList;
+import Model.ServerUser;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -38,8 +39,6 @@ public class CharEdit {
             this.charWindow.setTitle("Character Editor");
             this.charWindow.setScene(sc);
 
-            this.charWindow.show();
-
 
 
         } catch (IOException e) {
@@ -51,6 +50,10 @@ public class CharEdit {
 
     public Stage getStage() {
         return charWindow;
+    }
+
+    public void setCharacterForServerUser(ServerUser u) {
+        editControlls.setCharacterForServerUser(u);
     }
 
     public EditControlls getEditControlls() {

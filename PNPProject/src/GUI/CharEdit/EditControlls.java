@@ -3,6 +3,7 @@ package GUI.CharEdit;
 import GUI.Controller;
 import Model.Character.*;
 import Model.Character.Character;
+import Model.ServerUser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -104,7 +105,7 @@ public class EditControlls implements Initializable{
                     Integer.parseInt(wis_tf.getText()), Integer.parseInt(hp_tf.getText()), Integer.parseInt(intel_tf.getText()), Integer.parseInt(atk_tf.getText()),
                     Integer.parseInt(def_tf.getText()), Integer.parseInt(sta_tf.getText()), Integer.parseInt(dex_tf.getText()));
             return c;
-        } catch (CharacterCreatorException e) {
+        } catch (Exception e) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Oppps, something went wrong");
             a.setContentText(e.getMessage());
@@ -160,6 +161,29 @@ public class EditControlls implements Initializable{
 
         hp_tf.setText(String.valueOf(c.getHp()));
         hp_tf.setEditable(false);
+
+        accept_bt.setDisable(true);
+
+        this.chatEdit.getStage().show();
+    }
+
+    public void setCharacterForServerUser(ServerUser su) {
+
+        accept_bt.setOnAction(e -> {
+            Character c = createCharacter();
+            if(c != null) {
+                su.setCharacter(c);
+                chatEdit.getStage().close();
+                Alert a = new Alert(Alert.AlertType.INFORMATION);
+                a.setHeaderText(c.toString());
+                a.show();
+            }
+        });
+
+        if(chatEdit != null) {
+            chatEdit.getStage().show();
+        }
+
     }
 
 }
