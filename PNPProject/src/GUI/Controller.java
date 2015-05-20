@@ -227,7 +227,10 @@ public class Controller {
 
         stop_mi.setOnAction(e -> {
             CharEdit charEdit = new CharEdit();
+            charEdit.getEditControlls().createCharacterForClient(client);
         });
+
+
 
 
 

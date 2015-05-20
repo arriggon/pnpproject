@@ -1,6 +1,7 @@
 package Clinet.Service;
 
 import Clinet.Client;
+import Model.Character.*;
 import Model.ChatList;
 import Model.Request.UserListRequest;
 import javafx.concurrent.Service;
@@ -136,6 +137,12 @@ public class WhoOpensTheConnection extends Service<DataRetriever> {
     public void requestCharacter(String username) {
         if(dataRetriever != null) {
             dataRetriever.requestCharacter(username);
+        }
+    }
+
+    public void sendCharacterChangeNotification(Model.Character.Character c) {
+        if(dataRetriever != null) {
+            dataRetriever.sendCharacterChangeNotification(c);
         }
     }
 }

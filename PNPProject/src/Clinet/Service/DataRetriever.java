@@ -2,6 +2,7 @@ package Clinet.Service;
 
 import Clinet.Client;
 import Model.Character.*;
+import Model.Character.Character;
 import Model.ChatList;
 import Model.ChatUnit;
 import Model.DataOverNetwork;
@@ -160,6 +161,14 @@ public class DataRetriever extends Service<DataOverNetwork> {
     public void requestCharacter(String username) {
         try {
             oos.writeObject(new CharacterRequest(username));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendCharacterChangeNotification(Character c) {
+        try {
+            oos.writeObject(new CharacterChangeNotification(c));
         } catch (IOException e) {
             e.printStackTrace();
         }

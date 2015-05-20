@@ -76,6 +76,11 @@ public class DataRetriever extends Service<DataOverNetwork> {
                 }
 
 
+            }else if(unit instanceof CharacterChangeNotification) {
+                if(u instanceof ServerUser) {
+                    ServerUser su = (ServerUser) u;
+                    su.setCharacter(((CharacterChangeNotification)unit).characterToTake);
+                }
             }else if(unit instanceof DisconnectNotification) {
 
                 this.server.userDisconnected(this.u);
@@ -127,6 +132,8 @@ public class DataRetriever extends Service<DataOverNetwork> {
                         return (DisconnectNotification) o;
                     } else if (o instanceof CharacterRequest) {
                         return (CharacterRequest)o;
+                    } else if (o instanceof CharacterChangeNotification) {
+                        return (CharacterChangeNotification)o;
                     }
 
                 }

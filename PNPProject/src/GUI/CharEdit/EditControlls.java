@@ -1,5 +1,6 @@
 package GUI.CharEdit;
 
+import Clinet.Client;
 import GUI.Controller;
 import Model.Character.*;
 import Model.Character.Character;
@@ -8,13 +9,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import javax.print.DocFlavor;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class EditControlls implements Initializable{
@@ -185,5 +184,35 @@ public class EditControlls implements Initializable{
         }
 
     }
+
+    public void createCharacterForClient(Client c) {
+        accept_bt.setOnAction(e -> {
+            Character character1 = createCharacter();
+            if(character1 == null) {
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                a.setHeaderText("Character Creation Failure");
+                a.setContentText("Your character has not been created.\nDo you want to delete your character?");
+                Optional<ButtonType> choice = a.showAndWait();
+                if(choice.isPresent()) {
+                    ButtonType bt = choice.get();
+                    if(bt == ButtonType.OK) {
+                        chatEdit.getStage().close();
+                        c.sendCharacterChangeNotification(character1);
+                    }else if(bt == ButtonType.CANCEL){
+                        chatEdit.getStage().close();
+                        return;
+                    }
+                }
+
+            } else {
+               c.sendCharacterChangeNotification(character1);
+                chatEdit.getStage().close();
+            }
+
+
+        });
+        chatEdit.getStage().show();
+    }
+
 
 }

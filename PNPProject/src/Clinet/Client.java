@@ -3,6 +3,7 @@ package Clinet;
 import Clinet.Service.WhoOpensTheConnection;
 import GUI.CharEdit.CharEdit;
 import Model.Character.*;
+import Model.Character.Character;
 import Model.ChatList;
 import Model.Request.GetIpCarrier;
 import Model.Request.UserListCarrier;
@@ -137,5 +138,9 @@ public class Client extends Task<Void> {
 
 
 
+    }
+
+    public void sendCharacterChangeNotification(Character c) {
+        whoOpensTheConnection.sendCharacterChangeNotification(c);
     }
 }
