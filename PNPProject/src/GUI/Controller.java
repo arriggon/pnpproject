@@ -304,6 +304,7 @@ public class Controller {
         }
 
         if(server != null) {
+            server.disconnectAllUsers();
             server.cancel();
         }
     }

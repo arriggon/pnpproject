@@ -154,4 +154,13 @@ public class Server extends Task<Void>{
         }
 
     }
+
+    public void disconnectAllUsers() {
+        this.userList.getList().stream().filter(e -> e instanceof ServerUser).forEach(e -> {
+            if (e instanceof ServerUser) {
+                ServerUser su = (ServerUser)e;
+                this.disconnectUser(su);
+            }
+        });
+    }
 }
