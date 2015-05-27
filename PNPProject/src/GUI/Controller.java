@@ -269,8 +269,15 @@ public class Controller {
                     join_mi.setDisable(true);
                     host_mi.setDisable(true);
                     stop_mi.setDisable(false);
-                    button_B.setOnAction( e -> {
+                    button_B.setOnAction(e1 -> {
                         client.send(send_text_TF.getText());
+                        send_text_TF.setText("");
+                    });
+                    send_text_TF.setOnKeyPressed(f -> {
+                        if (f.getCode().equals(KeyCode.ENTER)) {
+                            client.send(send_text_TF.getText());
+                            send_text_TF.setText("");
+                        }
                     });
                 }
             }
