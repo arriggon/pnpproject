@@ -9,8 +9,10 @@ import Model.DataOverNetwork;
 import Model.Request.*;
 import Model.UserList;
 import Server.Server;
+import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -60,6 +62,11 @@ public class DataRetriever extends Service<DataOverNetwork> {
             } else if(o instanceof CharacterDisplayCarrier) {
                 CharacterDisplayCarrier cid = (CharacterDisplayCarrier) o;
                 this.c.showCharacter(cid.character);
+            } else if(o instanceof DisconnectNotification) {
+                this.c.requestDisconnect();
+                this.c.cancel();
+                Platform.exit();
+                System.exit(0);
             }
             DataRetriever.this.restart();
         });
@@ -144,6 +151,9 @@ public class DataRetriever extends Service<DataOverNetwork> {
                     return (CharacterDisplayCarrier)o;
                 }
 
+                if(o instanceof DisconnectNotification) {
+                    return (DisconnectNotification)o;
+                }
                 return null;
             }
         };

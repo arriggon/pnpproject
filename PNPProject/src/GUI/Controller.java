@@ -140,7 +140,18 @@ public class Controller {
                    }
                });
 
-               contextMenu.getItems().addAll(get_ip_item, get_char_mi, edit_char_mi);
+               MenuItem disconnect_user_mi = new MenuItem();
+               disconnect_user_mi.setText("Disconnect User");
+               disconnect_user_mi.setDisable(true);
+               disconnect_user_mi.setOnAction(e -> {
+                   User u = userListCell.getItem();
+                   if(u instanceof ServerUser) {
+                       ServerUser su = (ServerUser) u;
+                       server.disconnectUser(su);
+                   }
+               });
+
+               contextMenu.getItems().addAll(get_ip_item, get_char_mi, edit_char_mi, disconnect_user_mi);
 
                userListCell.emptyProperty().addListener(new ChangeListener<Boolean>() {
                    @Override
@@ -169,8 +180,10 @@ public class Controller {
                    public void changed(ObservableValue<? extends User> observable, User oldValue, User newValue) {
                        if(newValue != null && newValue instanceof ServerUser) {
                            edit_char_mi.setDisable(false);
+                           disconnect_user_mi.setDisable(false);
                        } else {
                            edit_char_mi.setDisable(true);
+                           disconnect_user_mi.setDisable(true);
                        }
                    }
                });

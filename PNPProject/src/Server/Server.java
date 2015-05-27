@@ -3,6 +3,7 @@ package Server;
 import Model.*;
 import Model.Character.*;
 import Model.Character.Character;
+import Model.Request.DisconnectNotification;
 import Model.Request.UserRemovalNotification;
 import Server.Service.DataManager;
 import Server.Service.Receptionist;
@@ -142,5 +143,15 @@ public class Server extends Task<Void>{
             }
         }
         return null;
+    }
+
+    public void disconnectUser(ServerUser su) {
+
+        try {
+            su.getOos().writeObject(new DisconnectNotification());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
