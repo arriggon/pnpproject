@@ -1,7 +1,7 @@
 package GUI.CharEdit;
 
 /**
- * Created by RAIDER on 16.05.2015.
+ * This is an exception thrown if a value or multiple values in the character-creation do not fit the specified terms
  */
 public class CharacterCreatorException extends Exception {
 

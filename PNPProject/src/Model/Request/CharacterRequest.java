@@ -6,7 +6,7 @@ import Model.DataOverNetwork;
 import java.io.Serializable;
 
 /**
- * Created by Alexander on 19.05.2015.
+ * This requests a character from the server
  */
 public class CharacterRequest implements Serializable, DataOverNetwork {
 

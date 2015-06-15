@@ -7,7 +7,7 @@ import Model.DataOverNetwork;
 import java.io.Serializable;
 
 /**
- * Created by Alexander on 20.05.2015.
+ * Sends a request to the server to change a character
  */
 public class CharacterChangeNotification implements Serializable, DataOverNetwork {
 

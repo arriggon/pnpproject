@@ -5,7 +5,7 @@ import Model.DataOverNetwork;
 import java.io.Serializable;
 
 /**
- * Created by RAIDER on 16.05.2015.
+ * This is an object sent to the user, who sent a GetIpRequest-object, by the server containing the requested IP-address.
  */
 public class GetIpCarrier implements Serializable, DataOverNetwork {
 

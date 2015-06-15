@@ -14,7 +14,7 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 /**
- * Created by RAIDER on 16.05.2015.
+ * This is the GUI opened when the user clicked on the 'Character Creator' button
  */
 public class CharEdit {
 

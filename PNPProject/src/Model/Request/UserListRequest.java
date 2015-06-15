@@ -6,7 +6,7 @@ import Model.DataOverNetwork;
 import java.io.Serializable;
 
 /**
- * Created by RAIDER on 15.05.2015.
+ * This requests the UserList from the server
  */
 public class UserListRequest implements Serializable, DataOverNetwork {
 
