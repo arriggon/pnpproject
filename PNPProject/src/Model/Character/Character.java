@@ -8,6 +8,8 @@ import java.io.Serializable;
 /**
  * This class represents the character-object stored for every user
  */
+
+
 public class Character implements Serializable, DataOverNetwork{
 
     /**
