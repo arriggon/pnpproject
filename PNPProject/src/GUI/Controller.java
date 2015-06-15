@@ -32,7 +32,9 @@ import javax.jws.soap.SOAPBinding;
 import javax.script.Bindings;
 import javax.swing.plaf.synth.SynthTextAreaUI;
 
-
+/**
+ * The Main-GUI-Controller
+ */
 public class Controller {
 
     @FXML // ResourceBundle that was given to the FXMLLoader
@@ -253,7 +255,9 @@ public class Controller {
     }
 
 
-
+    /**
+     * Gathers information needed for the user to be initialized after they used the join-button
+     */
     public void clientJoinInit() {
         TextInputDialog d = new TextInputDialog();
         d.setTitle("Username");
@@ -297,6 +301,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Disconnects all network-participants
+     */
     public void closeAll() {
         if(client != null) {
             client.requestDisconnect();

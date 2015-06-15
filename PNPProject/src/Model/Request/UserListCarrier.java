@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by RAIDER on 15.05.2015.
+ * This is an object sent to the network-participant, who sent a UserListRequest-object, by the server containing the general UserList.
  */
 public class UserListCarrier implements Serializable, DataOverNetwork {
 

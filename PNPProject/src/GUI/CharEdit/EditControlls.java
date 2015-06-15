@@ -16,6 +16,9 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * This is the controller-class for the CharEdit.java class
+ */
 public class EditControlls implements Initializable{
 
     @FXML
@@ -92,12 +95,20 @@ public class EditControlls implements Initializable{
 
     }
 
+    /**
+     * Sets the controller for the GUI
+     * @param ca The controller to be set with
+     */
     public void setController(Controller ca) {
         if(ca != null) {
             controller = ca;
         }
     }
 
+    /**
+     * Creates a character with the given parameters in the GUI
+     * @return Returns the created character if no error occurred
+     */
     public Character createCharacter() {
         try {
             Character c = new Character(name_TF.getText(), Integer.parseInt(age_tf.getText()), race_tf.getText(), class_tf.getText(), biography_ta.getText(), Integer.parseInt(agi_tf.getText()),
@@ -113,14 +124,26 @@ public class EditControlls implements Initializable{
         }
     }
 
+    /**
+     * Get-Method for the user's character
+     * @return Returns the Character character
+     */
     public Character getCharacter() {
         return character;
     }
 
+    /**
+     * Set-Method for the CharEdit
+     * @param ce The CharEdit-object to be set with
+     */
     public void setChatEdit(CharEdit ce) {
         chatEdit = ce;
     }
 
+    /**
+     * Fills the CharEdit with the already existing values
+     * @param c The character to be filled with
+     */
     public void fillCharEdit(Character c) {
         name_TF.setText(c.getName());
         name_TF.setEditable(false);
@@ -166,6 +189,10 @@ public class EditControlls implements Initializable{
         this.chatEdit.getStage().show();
     }
 
+    /**
+     * Sets the user's character
+     * @param su The ServerUser the character will be stored to
+     */
     public void setCharacterForServerUser(ServerUser su) {
 
         accept_bt.setOnAction(e -> {
@@ -185,6 +212,10 @@ public class EditControlls implements Initializable{
 
     }
 
+    /**
+     * Creates a character for a client
+     * @param c The Client the character will be stored to
+     */
     public void createCharacterForClient(Client c) {
         accept_bt.setOnAction(e -> {
             Character character1 = createCharacter();

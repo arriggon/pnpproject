@@ -48,7 +48,10 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
+    /**
+     * Launches the start-method inherited by the Application-class
+     * @param args Start-arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

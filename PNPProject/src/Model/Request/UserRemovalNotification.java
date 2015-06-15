@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by RAIDER on 16.05.2015.
+ * This is notifies the server to remove a user from the UserList
  */
 public class UserRemovalNotification implements Serializable, DataOverNetwork{
 

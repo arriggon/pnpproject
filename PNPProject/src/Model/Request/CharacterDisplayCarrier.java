@@ -7,7 +7,7 @@ import Model.DataOverNetwork;
 import java.io.Serializable;
 
 /**
- * Created by Alexander on 19.05.2015.
+ * This is an object sent to the user, who sent a CharacterRequest-object, by the server containing the requested character.
  */
 public class CharacterDisplayCarrier implements Serializable, DataOverNetwork {
     public final String username;
