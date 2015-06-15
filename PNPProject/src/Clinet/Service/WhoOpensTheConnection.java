@@ -16,7 +16,6 @@ import java.net.*;
 
 /**
  * This service creates the connection
- * Created by Alexander on 12.05.2015.
  */
 public class WhoOpensTheConnection extends Service<DataRetriever> {
 
@@ -42,7 +41,7 @@ public class WhoOpensTheConnection extends Service<DataRetriever> {
     private Client c;
 
     /**
-     * Service for retriving data
+     * Service for retrieving data
      */
     private DataRetriever dataRetriever;
 

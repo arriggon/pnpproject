@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 /**
  *
- * MAin Server class that directs all server-related tasks and invokes all other Server Services
+ * Main Server class that directs all server-related tasks and invokes all other Server Services
  *
  */
 public class Server extends Task<Void>{
@@ -125,7 +125,7 @@ public class Server extends Task<Void>{
     }
 
     /**
-     * Is invoked by the GUI to hand over the message typed by the server admin and forwards it to Data Managment
+     * Is invoked by the GUI to hand over the message typed by the server admin and forwards it to Data Management
      * @param str String handed over by the GUI to send
      */
     public void send(String str) {
@@ -134,7 +134,7 @@ public class Server extends Task<Void>{
     }
 
     /**
-     * Generates a List containig all Users logged in on the server in an Abstract form for further Use
+     * Generates a List containig all users logged in on the server in an Abstract form for further use
      * @return A list that can be sent over the network containing all Users of the Server in an abstracted form
      */
     public List<User> getCompleteUserList() {

@@ -20,8 +20,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 /**
- * This class represents a client and is the main Thread for every client
- * Created by Alexander on 12.05.2015.
+ * This class represents a client and is the main thread for every client
  */
 public class Client extends Task<Void> {
 
@@ -58,7 +57,7 @@ public class Client extends Task<Void> {
     private boolean whoIsRunningOnce;
 
     /**
-     *  Initialized the Client
+     * Initializes the Client
      * @param cL Data model for Chat messages
      * @param uL Data Model for Users
      * @param username Username of the client
@@ -134,7 +133,7 @@ public class Client extends Task<Void> {
     }
 
     /**
-     * Invoked if an error happened if the connection fails. (Default: Username is already taken)
+     * Invoked if an error happened when the connection fails. (Default: Username is already taken)
      */
     public void showConnectionError() {
         Alert a = new Alert(Alert.AlertType.ERROR);

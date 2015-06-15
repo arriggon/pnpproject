@@ -24,7 +24,6 @@ import java.nio.channels.SocketChannel;
 
 /**
  * This service monitors the connection to the server and handles incoming data
- * Created by Alexander on 12.05.2015.
  */
 public class DataRetriever extends Service<DataOverNetwork> {
 
