@@ -23,16 +23,40 @@ import java.net.SocketTimeoutException;
 import java.nio.channels.SocketChannel;
 
 /**
+ * This service monitors the connection to the server and handles incoming data
  * Created by Alexander on 12.05.2015.
  */
 public class DataRetriever extends Service<DataOverNetwork> {
 
+    /**
+     * Connection to the server
+     */
     private Socket socket;
+    /**
+     * Data Model for chat messages
+     */
     private ChatList list;
+    /**
+     * Input Stream to be monitored
+     */
     private ObjectInputStream ios;
+    /**
+     * Output Stream used to send data
+     */
     private ObjectOutputStream oos;
+    /**
+     * Client this service belong to
+     */
     private Client c;
 
+    /**
+     * Initilaized the Service
+     * @param socket Connection to the service
+     * @param chatList Data Model behind chat messages
+     * @param ios Input stream to be monitored
+     * @param oos Output Stream used for sending data
+     * @param c Client the serive belongs too
+     */
     public DataRetriever(Socket socket, ChatList chatList, ObjectInputStream ios, ObjectOutputStream oos, Client c) {
         this.socket = socket;
         list = chatList;
@@ -79,6 +103,10 @@ public class DataRetriever extends Service<DataOverNetwork> {
         });
     }
 
+    /**
+     * Send data over the Output stream
+     * @param str String to be sent
+     */
     public void send(String str) {
         try {
             oos.writeObject(str);
@@ -88,6 +116,9 @@ public class DataRetriever extends Service<DataOverNetwork> {
 
     }
 
+    /**
+     * Stop the service
+     */
     public void stop() {
         this.setOnSucceeded(e -> {
             return;
@@ -114,6 +145,9 @@ public class DataRetriever extends Service<DataOverNetwork> {
 
     }
 
+    /**
+     * Invoked to notify the server about the upcoming disconnection
+     */
     public void requestDisconnect() {
         try {
             System.out.println("Disconnecting");
@@ -124,6 +158,9 @@ public class DataRetriever extends Service<DataOverNetwork> {
     }
 
     @Override
+    /**
+     * Main Logic behind the server. Is used to retrieve the data and handle it
+     */
     protected Task<DataOverNetwork> createTask() {
 
         final ObjectInputStream ios = this.ios;
@@ -159,6 +196,9 @@ public class DataRetriever extends Service<DataOverNetwork> {
         };
     }
 
+    /**
+     * Invoked to request the ip of the client from the server
+     */
     public void requestIpFromServer() {
         System.out.print("Request final");
         try {
@@ -168,6 +208,10 @@ public class DataRetriever extends Service<DataOverNetwork> {
         }
     }
 
+    /**
+     * Is used to request the Character from a specific user from the server
+     * @param username user the character is requested from
+     */
     public void requestCharacter(String username) {
         try {
             oos.writeObject(new CharacterRequest(username));
@@ -176,6 +220,10 @@ public class DataRetriever extends Service<DataOverNetwork> {
         }
     }
 
+    /**
+     * Invoked when the Character of the client is changed to notify the server
+     * @param c new Character
+     */
     public void sendCharacterChangeNotification(Character c) {
         try {
             oos.writeObject(new CharacterChangeNotification(c));

@@ -16,16 +16,40 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
+ * This is the Object that is used to monitor the client and to process data from the Client
  * Created by RAIDER on 09.05.2015.
  */
 public class DataRetriever extends Service<DataOverNetwork> {
 
+    /**
+     * Stream used for Monitoring incoming data
+     */
     private ObjectInputStream ios;
+    /**
+     * User the DataRetriever belongs to
+     */
     private User u;
+    /**
+     * Data Model used for forwarding chat messages
+     */
     private DataInput dataInput;
+    /**
+     * Service the service is running in
+     */
     private ExecutorService service;
+    /**
+     * Reference to the server this service belongs to
+     */
     private Server server;
 
+    /**
+     * Initializes the DataRetriever
+     * @param ios Stream to be monitored
+     * @param u User the DataRetriever belongs too
+     * @param dataInput DataModel for forwading chat messages
+     * @param service  Service the service is running in
+     * @param server Server the dataRetriever belongs too
+     */
     public DataRetriever(ObjectInputStream ios, User u, DataInput dataInput, ExecutorService service, Server server) {
         this.ios = ios;
         this.dataInput = dataInput;
@@ -99,6 +123,9 @@ public class DataRetriever extends Service<DataOverNetwork> {
         });
     }
 
+    /**
+     * Stops the DataRetriever
+     */
     public void stop()  {
         this.setOnFailed(e -> {
             return;
@@ -110,6 +137,10 @@ public class DataRetriever extends Service<DataOverNetwork> {
     }
 
     @Override
+    /**
+     * Main Logic behind the DataRetriever. This method is always invoked to see if anything has been sent and if yes, then it is determined
+     * if the data can be used or not and then it is forwarded for further processing.
+     */
     protected Task<DataOverNetwork> createTask() {
         final ObjectInputStream ios = this.ios;
         final User u = this.u;

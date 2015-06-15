@@ -24,21 +24,55 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
- * Created by RAIDER on 08.05.2015.
+ *
+ * MAin Server class that directs all server-related tasks and invokes all other Server Services
+ *
  */
 public class Server extends Task<Void>{
     //Service
+    /**
+     * Datamodel for Users
+     */
     private UserList userList;
+    /**
+     * Datamodel for All Chat Messages (Chat Units)
+     */
     private ChatList chatList;
+    /**
+     * Buffer for ChatList
+     */
     private DataInput dataInput;
     //Services
+    /**
+     * Cotainer for connection initialization thread
+     */
     private Receptionist receptionist;
+    /**
+     * Container for Data managing thread
+     */
     private DataManager dataManager;
     //Server only
+    /**
+     * Executors service responsible for managing all threads used by the server
+     */
     private ExecutorService service;
+
+    //Flags
+    /**
+     * Starting flag for the receptionist thread
+     */
     private boolean recOnceStarted;
+    /**
+     * Starting flag for the data management thread
+     */
     private boolean dataManagerStatedOnce;
 
+    /**
+     * Initializes the server and hands over all the neccessary data models
+     * @param userList reference for the data model for users
+     * @param chatList Reference for the data model for the chat messages
+     * @throws IOException
+     */
     public Server(UserList userList, ChatList chatList) throws IOException {
 
         service = Executors.newCachedThreadPool(new ThreadFactory() {
@@ -60,11 +94,17 @@ public class Server extends Task<Void>{
         dataManagerStatedOnce = false;
     }
 
+    /**
+     * Starts the server
+     */
     public void start() {
         service.submit(this);
     }
 
     @Override
+    /**
+     * Method executed when the main server thread is online
+     */
     protected Void call() throws Exception {
         while(!isCancelled()) {
             if(!recOnceStarted) {
@@ -84,11 +124,19 @@ public class Server extends Task<Void>{
         return null;
     }
 
+    /**
+     * Is invoked by the GUI to hand over the message typed by the server admin and forwards it to Data Managment
+     * @param str String handed over by the GUI to send
+     */
     public void send(String str) {
         ChatUnit u = new ChatUnit("Server", str);
         dataManager.send(u);
     }
 
+    /**
+     * Generates a List containig all Users logged in on the server in an Abstract form for further Use
+     * @return A list that can be sent over the network containing all Users of the Server in an abstracted form
+     */
     public List<User> getCompleteUserList() {
         ArrayList<User> users = new ArrayList<>();
         Iterator<User> i = userList.getList().iterator();
@@ -98,6 +146,10 @@ public class Server extends Task<Void>{
         return users;
     }
 
+    /**
+     * Invoked when one of the user disconnects. Is used to free resources.
+     * @param u User that disconnects
+     */
     public void userDisconnected(User u) {
         if(u instanceof ServerUser) {
             ((ServerUser) u).getDataRetriever().stop();
@@ -131,6 +183,11 @@ public class Server extends Task<Void>{
         }
     }
 
+    /**
+     * Retrieves the Character from the Data Model and returns it
+     * @param username Username of the user the character is requested for
+     * @return Character from the requested user
+     */
     public Model.Character.Character getCharacterFromUser(String username) {
         Iterator<User> i = userList.getList().iterator();
         while (i.hasNext()) {
@@ -145,6 +202,10 @@ public class Server extends Task<Void>{
         return null;
     }
 
+    /**
+     * Called when the server disconnects a User
+     * @param su Server user to be disconnected
+     */
     public void disconnectUser(ServerUser su) {
 
         try {
@@ -155,6 +216,9 @@ public class Server extends Task<Void>{
 
     }
 
+    /**
+     * Called when the server shuts down, to disconnect all the currently active users on the server
+     */
     public void disconnectAllUsers() {
         this.userList.getList().stream().filter(e -> e instanceof ServerUser).forEach(e -> {
             if (e instanceof ServerUser) {

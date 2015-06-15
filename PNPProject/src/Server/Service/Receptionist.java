@@ -17,16 +17,42 @@ import java.util.concurrent.ExecutorService;
 import java.util.function.Predicate;
 
 /**
+ * This Class represents the service that is used to initiate the connection for every user that logs onto the server.
+ *
  * Created by RAIDER on 08.05.2015.
  */
 public class Receptionist extends Service<User> {
 
+    /**
+     * Socket the service listenes too
+     */
     private ServerSocket s;
+    /**
+     * Data Model for Users
+     */
     private UserList userList;
+    /**
+     * Thread Pool the service runs in
+     */
     private ExecutorService service;
+    /**
+     * Data Model for forwading data
+     */
     private DataInput dataInput;
+    /**
+     * Server this service belongs too
+     */
     private Server server;
 
+    /**
+     * Initiates the Receptionis
+     * @param u Datamodel for users
+     * @param chatList Datamodel for Chat Units
+     * @param dataInput Data Model for Data
+     * @param service Service the service will be running in
+     * @param server Server the service belongs too
+     * @throws IOException
+     */
     public Receptionist(UserList u,ChatList chatList, DataInput dataInput, ExecutorService service, Server server) throws IOException {
         this.userList = u;
         this.service = service;
@@ -85,6 +111,9 @@ public class Receptionist extends Service<User> {
         );
     }
 
+    /**
+     * Stops the receptionist
+     */
     public void stop() {
         this.setOnSucceeded(e -> {
             return;
@@ -92,6 +121,9 @@ public class Receptionist extends Service<User> {
     }
 
     @Override
+    /**
+     * Main method for the Service. THis method is invoked by the service and connects the clients that log onto the server.
+     */
     protected Task<User> createTask() {
         final ServerSocket s = this.s;
         final UserList userList = this.userList;

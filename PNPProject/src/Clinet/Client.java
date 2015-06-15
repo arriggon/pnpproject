@@ -20,23 +20,51 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 /**
+ * This class represents a client and is the main Thread for every client
  * Created by Alexander on 12.05.2015.
  */
 public class Client extends Task<Void> {
 
-
+    /**
+     * Is the Thread Pool for all client-related processes
+     */
     private ExecutorService service;
+    /**
+     * DataModel for chat Messages
+     */
     private ChatList chatList;
+    /**
+     * Data Model for users connected to the server
+     */
     private UserList userList;
+    /**
+     * Credentials needed for logging onto the server
+     */
     private String username, ipAddress;
+
+    /**
+     * Port to connect with the server
+     */
     private int port;
 
+    /**
+     * Container for connection-establishing service
+     */
     private WhoOpensTheConnection whoOpensTheConnection;
 
-
+    /**
+     * Starting flag for the connection-establishig service
+     */
     private boolean whoIsRunningOnce;
 
-
+    /**
+     *  Initialized the Client
+     * @param cL Data model for Chat messages
+     * @param uL Data Model for Users
+     * @param username Username of the client
+     * @param ipAddress ip address of the server
+     * @param port Port the server listenes too
+     */
     public Client(ChatList cL, UserList uL, String username, String ipAddress, int port) {
 
         service = Executors.newCachedThreadPool(new ThreadFactory() {
@@ -62,14 +90,24 @@ public class Client extends Task<Void> {
 
     }
 
+    /**
+     * Starts the client
+     */
     public void start() {
         this.service.submit(this);
     }
 
+    /**
+     * Invoked to send a chat message to the server
+     * @param string The message to be sent
+     */
     public void send(String string) {
         whoOpensTheConnection.send(string);
     }
 
+    /**
+     * Is invoked to notify the server about the disconnection of the client.
+     */
     public void requestDisconnect() {
         whoOpensTheConnection.requestDisconnect();
     }
@@ -77,6 +115,9 @@ public class Client extends Task<Void> {
 
 
     @Override
+    /**
+     * Is the main method of the client thread. Is used to start and to stop the services working for the client.
+     */
     protected Void call() throws Exception {
         if(!isCancelled()) {
 
@@ -92,13 +133,21 @@ public class Client extends Task<Void> {
         return null;
     }
 
+    /**
+     * Invoked if an error happened if the connection fails. (Default: Username is already taken)
+     */
     public void showConnectionError() {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setHeaderText("Could not Connect: Username already exist");
         a.show();
     }
 
-    public void addAllUsers(UserListCarrier uca) {
+
+    /**
+     * This method is invoked while a connection to the server is established to populate the User data model.
+     * @param uca The data used to populate the User list
+     */
+     public void addAllUsers(UserListCarrier uca) {
         System.out.println("Writting users to GUI");
         Iterator<User> i = uca.listToAddOn.iterator();
         while (i.hasNext()) {
@@ -108,27 +157,46 @@ public class Client extends Task<Void> {
         }
     }
 
+    /**
+     * Invoked to request the client IP from the server
+     */
     public void requestIpFromServer() {
         System.out.print("Reuest ip from Client 2");
         whoOpensTheConnection.requestIpFromServer();
     }
 
+    /**
+     * Invoked when the answer for the IPRequest from the server has been received.
+     * @param gipca the Answer from the server
+     */
     public void showIpRequested(GetIpCarrier gipca) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setHeaderText("The IP of "+gipca.username+": "+gipca.ipAddress);
         a.show();
     }
 
+    /**
+     * Is Invoked when the Server notifies the Client that users have logged off and have to be removed from the Data Model
+     * @param userRemovalNotification Container containing the Users that have to be removed
+     */
     public void removeUsersFromUserList(UserRemovalNotification userRemovalNotification) {
         userRemovalNotification.usersToRemove.stream().forEach(e -> {
             userList.removeUser(e);
         });
     }
 
+    /**
+     * Invoked by the client to request the Character from a specific user
+     * @param username user from who the character is requested
+     */
     public void requestCharacter(String username) {
         whoOpensTheConnection.requestCharacter(username);
     }
 
+    /**
+     * Invoked when the answer from the server is recieved to display the requested character
+     * @param c Character to be displayed
+     */
     public void showCharacter(Model.Character.Character c) {
 
         CharEdit ce = new CharEdit();
@@ -140,6 +208,10 @@ public class Client extends Task<Void> {
 
     }
 
+    /**
+     * Is invoked when the character has been changed
+     * @param c new Character
+     */
     public void sendCharacterChangeNotification(Character c) {
         whoOpensTheConnection.sendCharacterChangeNotification(c);
     }
